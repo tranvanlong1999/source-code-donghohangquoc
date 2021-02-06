@@ -1,5 +1,8 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Output;
 
+import lombok.Data;
+
+@Data
 public class UserOutput {
     private int id;
     private String username;
