@@ -1,8 +1,10 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Service.Impl;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Constants.ResCode;
 import com.example.thuctaptotnghiep.donghohanquoc.Converter.UserConverter;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.UserEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.UserRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
@@ -42,4 +44,27 @@ public class UserServiceImpl implements UserService {
         }
         return userOutputs;
     }
+
+    @Override
+    public ResponseData<Boolean> deleteUserById(Integer id) {
+        ResponseData<Boolean> responseData= new ResponseData<>();
+        try
+        {
+            // get user by ID
+            UserEntity userEntity= userRepository.findByID(id);
+            if(ObjectUtils.isEmpty(userEntity))
+            {
+                throw new Exception();
+            }
+            userRepository.delete(userEntity);
+            responseData.setCode(ResCode.SUCCESS.getCode());
+            responseData.setMessage(ResCode.SUCCESS.getMessage());
+            responseData.setData(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseData;
+    }
+
 }

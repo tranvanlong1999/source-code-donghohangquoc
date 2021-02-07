@@ -1,6 +1,7 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Service;
 
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import org.springframework.stereotype.Service;
 
@@ -11,4 +12,5 @@ public interface UserService {
     UserOutput checkLogin(UserInput userInput);
     UserOutput SaveUser(UserInput userInput);
     List<UserOutput> getListUser();
+    ResponseData<Boolean> deleteUserById(Integer id);
 }

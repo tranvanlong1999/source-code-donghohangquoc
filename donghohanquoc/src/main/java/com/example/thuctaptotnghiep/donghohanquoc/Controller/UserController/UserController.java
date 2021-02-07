@@ -32,4 +32,9 @@ public class UserController {
           List<UserOutput> userOutputList= userService.getListUser();
           return ResponseEntity.status(HttpStatus.OK).body(userOutputList);
      }
+     @DeleteMapping
+     public ResponseEntity<?> deleteUserById(@RequestBody Integer id)
+     {
+          return null;
+     }
 }
