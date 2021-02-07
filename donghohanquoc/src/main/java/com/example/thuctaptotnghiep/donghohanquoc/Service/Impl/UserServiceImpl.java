@@ -10,22 +10,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Component
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private UserConverter userConverter;
+
     @Override
     public UserOutput checkLogin(UserInput userInput) {
-        UserEntity userEntity = userRepository.findByUserNameAndPassWord(userInput.getUserName(),userInput.getPassword());
-        UserOutput userOutput= new UserOutput();
-        if(!ObjectUtils.isEmpty(userEntity))
-        {
-            userOutput= userConverter.toUserUserEntity(userEntity);
-            return userOutput;
-        }
-        return null;
+         UserEntity userEntity = userRepository.findByUserNameAndPassWord(userInput.getUsername(),userInput.getPassword());
+         return userConverter.toUserUserEntity(userEntity);
+    }
 
+    @Override
+    public UserOutput SaveUser(UserInput userInput) {
+        UserEntity userEntity= userConverter.toUserInput(userInput);
+        userEntity=userRepository.save(userEntity);
+        return userConverter.toUserUserEntity(userEntity);
+    }
+
+    @Override
+    public List<UserOutput> getListUser() {
+        List<UserEntity> userEntityList= userRepository.findAll();
+        List<UserOutput> userOutputs= new LinkedList<>();
+        for (UserEntity userEntity:userEntityList) {
+            userOutputs.add(new UserConverter().toUserUserEntity(userEntity));
+        }
+        return userOutputs;
     }
 }
