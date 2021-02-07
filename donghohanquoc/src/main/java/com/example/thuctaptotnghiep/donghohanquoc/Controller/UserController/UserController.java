@@ -20,6 +20,6 @@ public class UserController {
      public ResponseEntity<?> login(@RequestBody UserInput model)
      {
           UserOutput userOutput= userService.checkLogin(model);
-          return ResponseEntity.status(HttpStatus.OK).body(userOutput);
+          return ResponseEntity.ok(userOutput);
      }
 }

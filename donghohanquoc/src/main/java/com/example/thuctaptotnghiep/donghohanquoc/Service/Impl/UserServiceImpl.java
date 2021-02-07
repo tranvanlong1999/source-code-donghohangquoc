@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
     @Override
     public UserOutput checkLogin(UserInput userInput) {
-        UserEntity userEntity = userRepository.findUserEntitiesByUserNameAndPassWord(userInput);
+        UserEntity userEntity = userRepository.findByUserNameAndPassWord(userInput.getUserName(),userInput.getPassword());
         UserOutput userOutput= new UserOutput();
         if(!ObjectUtils.isEmpty(userEntity))
         {
