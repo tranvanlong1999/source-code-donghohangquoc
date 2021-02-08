@@ -20,4 +20,8 @@ public class UserUpdateInput {
     private String updatedby;
     private String newPassword;
     private String reNewPassword;
+    private Date forgetcodedate;
+    private Date joinedat;
+    private String createdby;
+    private String forgetcode;
 }

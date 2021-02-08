@@ -2,6 +2,7 @@ package com.example.thuctaptotnghiep.donghohanquoc.Controller.UserController;
 
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserUpdateInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
@@ -38,8 +39,8 @@ public class UserController {
           return userService.deleteUserById(id);
      }
      @PutMapping
-     public ResponseData<Boolean> updateUserByAdmin(@RequestBody UserInput input)
+     public ResponseData<Boolean> updateUserByAdmin(@RequestBody UserUpdateInput userUpdateInput)
      {
-          return null;
+          return userService.updateUserByAdmin(userUpdateInput);
      }
 }

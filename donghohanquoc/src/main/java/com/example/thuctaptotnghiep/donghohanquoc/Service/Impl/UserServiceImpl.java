@@ -13,6 +13,7 @@ import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.UserRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
 import com.sun.istack.Nullable;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -143,14 +144,30 @@ public class UserServiceImpl implements UserService {
                 throw new CustomException(Constants.ERROR_CODE,"user không tồn tại trong hệ thống");
             }
             // case email đã có trong hệ thống
-            if(!ObjectUtils.isEmpty(userEntity))
+            if(!ObjectUtils.isEmpty(userRepository.findByEmailAndIDNot(userUpdateInput.getEmail(),userUpdateInput.getId())))
             {
                 throw new CustomException(Constants.ERROR_CODE,"Email tồn tại trong hệ thống");
             }
-            //if(checkPassWordIsEmpty==false && )
+            if(checkPassWordIsEmpty==false && !BCrypt.checkpw(userUpdateInput.getPassword(),userEntity.getPassWord()))
+            {
+                throw new CustomException(Constants.ERROR_CODE,"Mật khẩu cũ không chính xác");
+            }
+            // save user vào database
+            userEntity = userRepository.save(userConverter.toUserUpdateInput(userUpdateInput));
+            // set data response
+            responseData.setCode(ResCode.SUCCESS.getCode());
+            responseData.setMessage(ResCode.SUCCESS.getMessage());
+            responseData.setData(true);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (CustomException e) {
+            responseData.setCode(e.getErrorCode());
+            responseData.setMessage(e.getMessage());
+            responseData.setData(false);
+        }catch (Exception e)
+        {
+            responseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
+            responseData.setMessage(ResCode.UNKNOWN_ERROR.getMessage());
+            responseData.setData(false);
         }
         return responseData;
     }
