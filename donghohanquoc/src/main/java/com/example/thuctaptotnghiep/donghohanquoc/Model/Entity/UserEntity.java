@@ -20,30 +20,27 @@ public class UserEntity {
     @Column(name = "Full_Name")
     private String fullName;
     @Column(name = "Phone")
-    private String Phone;
+    private String phone;
     @Column(name = "Address")
-    private String Address;
+    private String address;
     @Column(name = "Forget_Code")
     private String forgetCode;
     @Column(name = "Status")
-    private int Status;
+    private int status;
     @Column(name = "Role")
-    private int Role;
+    private int role;
     @Column(name = "Email")
-    private String Email;
+    private String email;
     @Column(name = "Forget_Code_Date")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date forgetCodeDate;
     @Column(name= "Sex")
-    private int Sex;
+    private int sex;
     @Column(name = "joined_At")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date joinedAt;
     @Column(name="Created_By")
     private String createBy;
     @Column(name="Updated_By")
     private String udatedBy;
     @Column(name = "Updated_At")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 }

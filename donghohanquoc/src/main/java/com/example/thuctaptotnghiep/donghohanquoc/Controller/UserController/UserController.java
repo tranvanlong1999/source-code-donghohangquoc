@@ -1,6 +1,8 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.UserController;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +18,27 @@ public class UserController {
      @Autowired
      private UserService userService;
      @PostMapping("/login")
-     public ResponseEntity<?> login(@RequestBody UserInput input)
+     public ResponseData<UserOutput> login(@RequestBody LoginInput input)
      {
-          UserOutput userOutput= userService.checkLogin(input);
-          return ResponseEntity.status(HttpStatus.OK).body(userOutput);
+          return userService.checkLogin(input);
      }
      @PostMapping
-     public ResponseEntity<?>  createUser(@RequestBody UserInput input)
+     public ResponseData<Boolean>  createUserByAdmin(@RequestBody UserInput input)
      {
-          return  ResponseEntity.status(HttpStatus.OK).body(userService.SaveUser(input));
+          return  userService.createUserByAdmin(input);
      }
      @GetMapping
-     public ResponseEntity<?> getListUser()
+     public ResponseData<List<UserOutput>> getListUser()
      {
-          List<UserOutput> userOutputList= userService.getListUser();
-          return ResponseEntity.status(HttpStatus.OK).body(userOutputList);
+          return userService.getListUser();
      }
      @DeleteMapping
-     public ResponseEntity<?> deleteUserById(@RequestBody Integer id)
+     public ResponseData<Boolean> deleteUserById(@RequestBody Integer id)
+     {
+          return userService.deleteUserById(id);
+     }
+     @PutMapping
+     public ResponseData<Boolean> updateUserByAdmin(@RequestBody UserInput input)
      {
           return null;
      }

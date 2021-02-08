@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+    // Khi truyền tham số ở bên này thì phải giống với bên entity.
     UserEntity findByUserNameAndPassWord(String username, String password);
     UserEntity findByID(Integer id);
-    List<UserEntity> findByUserEntity(UserEntity userEntity);
+    UserEntity findByEmail(String email);
+
 }

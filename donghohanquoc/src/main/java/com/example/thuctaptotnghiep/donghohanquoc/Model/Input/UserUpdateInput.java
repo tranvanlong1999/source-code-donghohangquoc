@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class UserInput {
-    // khi truyền dữ liệu từ  client phải giống với biến ở đây
+public class UserUpdateInput {
+    private Integer id;
     private String username;
     private String password;
     private String fullname;
@@ -16,6 +16,8 @@ public class UserInput {
     private int role;
     private String email;
     private int sex;
-    private Date joinedat;
-    private String createdby;
+    private Date updatedat;
+    private String updatedby;
+    private String newPassword;
+    private String reNewPassword;
 }
