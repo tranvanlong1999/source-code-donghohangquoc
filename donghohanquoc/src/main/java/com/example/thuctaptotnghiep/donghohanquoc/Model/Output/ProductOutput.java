@@ -20,4 +20,5 @@ public class ProductOutput {
     private String createdby;
     private Date updatedat;
     private String updatedby;
+    private String path;
 }

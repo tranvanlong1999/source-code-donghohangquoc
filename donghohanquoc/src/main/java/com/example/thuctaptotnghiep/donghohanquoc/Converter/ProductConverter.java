@@ -29,6 +29,7 @@ public class ProductConverter {
             productOutput.setCreatedby(productEntity.getCreatedby());
             productOutput.setUpdatedat(productEntity.getUpdatedat());
             productOutput.setUpdatedby(productEntity.getUpdatedby());
+            productOutput.setPath(productEntity.getPath());
         }
         return productOutput;
     }

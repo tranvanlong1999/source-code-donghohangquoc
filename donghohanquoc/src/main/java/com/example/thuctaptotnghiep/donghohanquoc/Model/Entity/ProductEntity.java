@@ -40,6 +40,8 @@ public class ProductEntity {
     private Date updatedat;
     @Column(name = "Updated_By")
     private String updatedby;
+    @Column(name = "Path")
+    private String path;
     /*// map voi ben productatributeentity
     @OneToMany(mappedBy = "productentity")
     private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();*/

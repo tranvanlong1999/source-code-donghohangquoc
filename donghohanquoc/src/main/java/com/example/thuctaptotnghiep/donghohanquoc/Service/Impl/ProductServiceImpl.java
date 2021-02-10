@@ -11,10 +11,12 @@ import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ProductOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.*;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.ProductService;
+import com.example.thuctaptotnghiep.donghohanquoc.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.rmi.CORBA.Util;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,6 +63,11 @@ public class ProductServiceImpl implements ProductService {
             // case brand is null
             if(ObjectUtils.isEmpty(productEntity.getBrandentity()))
                 productEntity.setBrandentity(brandRepository.findById(Constants.BRAND_DEFAULT).get());
+            // save product to db
+            productEntity=productRepository.save(productEntity);
+            // set data in product
+            productEntity.setProductname(productEntity.getProductname()+"MS" +productEntity.getId());
+            productEntity.setPath(Utils.formatStringtoUrl(productEntity.getProductname()));
             // save product to db
             productEntity=productRepository.save(productEntity);
             //set data to list product atribtute
