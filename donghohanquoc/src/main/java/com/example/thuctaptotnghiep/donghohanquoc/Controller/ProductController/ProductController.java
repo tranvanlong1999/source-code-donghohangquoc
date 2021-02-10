@@ -1,13 +1,27 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.ProductController;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ProductOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.thuctaptotnghiep.donghohanquoc.Service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+    @Autowired
+    ProductService productService;
     @GetMapping
-    ResponseData<>
+    ResponseData<List<ProductOutput>> getListProduct()
+    {
+        return productService.getListProduct();
+    }
+    @PostMapping
+    ResponseData <Integer> createProductByAdmin(@RequestBody ProductInput productInput)
+    {
+        return productService.createProductByAdmin(productInput) ;
+    }
 }
