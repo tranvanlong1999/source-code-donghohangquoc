@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProductService {
     ResponseData<List<ProductOutput>>  getListProduct();
     ResponseData<Integer> createProductByAdmin(ProductInput productInput);
+    ResponseData<Boolean> deleteProductByAdmin(Integer productid);
 }

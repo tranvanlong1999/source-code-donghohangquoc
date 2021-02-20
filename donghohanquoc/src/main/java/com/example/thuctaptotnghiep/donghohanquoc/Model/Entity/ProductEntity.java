@@ -42,7 +42,5 @@ public class ProductEntity {
     private String updatedby;
     @Column(name = "Path")
     private String path;
-    /*// map voi ben productatributeentity
-    @OneToMany(mappedBy = "productentity")
-    private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();*/
+
 }

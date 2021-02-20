@@ -93,4 +93,22 @@ public class ProductServiceImpl implements ProductService {
         }
         return responseData;
     }
+
+    @Override
+    public ResponseData<Boolean> deleteProductByAdmin(Integer productid) {
+        ResponseData<Boolean> responseData= new ResponseData<>();
+        try
+        {
+            // lay ra product can xoa dua vao id
+            ProductEntity productEntity= productRepository.findById(productid).get();
+            if(ObjectUtils.isEmpty(productEntity))
+            {
+                throw new Exception("Product not exist");
+            }
+
+        } catch (Exception e) {
+
+        }
+        return responseData;
+    }
 }
