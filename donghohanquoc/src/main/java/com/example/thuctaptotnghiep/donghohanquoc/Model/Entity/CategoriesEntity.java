@@ -30,4 +30,8 @@ public class CategoriesEntity {
     private Date updatedat;
     @Column(name = "Updated_By")
     private String updatedby;
+    @OneToMany(mappedBy = "categoriesEntity")
+    private List<ProductCategoriesEntity> categoriesEntityList= new ArrayList<>();
+
+
 }

@@ -4,8 +4,10 @@ import com.example.thuctaptotnghiep.donghohanquoc.Constants.Constants;
 import com.example.thuctaptotnghiep.donghohanquoc.Constants.ResCode;
 import com.example.thuctaptotnghiep.donghohanquoc.Converter.ProductConverter;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductAtributeEntity;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductCategoriesEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductAtributeInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductCategoriesInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ProductOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
@@ -34,6 +36,10 @@ public class ProductServiceImpl implements ProductService {
     ProductAtributeRepository productAtributeRepository;
     @Autowired
     BrandRepository brandRepository;
+    @Autowired
+    CategoriesRepository categoriesRepository;
+    @Autowired
+    ProductCategoriesRepository productCategoriesRepository;
     @Override
     public ResponseData<List<ProductOutput>> getListProduct() {
         ResponseData<List<ProductOutput>> listResponseData= new ResponseData<>();
@@ -58,7 +64,10 @@ public class ProductServiceImpl implements ProductService {
         ResponseData<Integer> responseData= new ResponseData<>();
         try {
             List<ProductAtributeEntity>productAtributeEntityList= new ArrayList<>();
+            List<ProductCategoriesEntity> productCategoriesEntityList= new ArrayList<>();
             List<ProductAtributeInput> productAtributeInputList= productInput.getProductAtributeInputList();
+            List<ProductCategoriesInput> productCategoriesInputList= productInput.getProductCategoriesInputList();
+
             ProductEntity productEntity= productConverter.toProductInput(productInput);
             // case brand is null
             if(ObjectUtils.isEmpty(productEntity.getBrandentity()))
@@ -83,6 +92,15 @@ public class ProductServiceImpl implements ProductService {
 
             // save product atribute vao db
             productAtributeRepository.saveAll(productAtributeEntityList);
+            // set data to list product categories
+            for (ProductCategoriesInput productCategoriesInput: productCategoriesInputList) {
+                ProductCategoriesEntity productCategoriesEntity= new ProductCategoriesEntity();
+                productCategoriesEntity.setProductEntity(productEntity);
+                productCategoriesEntity.setCategoriesEntity(categoriesRepository.findById(productCategoriesInput.getCategoriesid()).get());
+                productCategoriesEntityList.add(productCategoriesEntity);
+            }
+            // save productcategories vao db
+            productCategoriesRepository.saveAll(productCategoriesEntityList);
 
             responseData.setCode(ResCode.SUCCESS.getCode());
             responseData.setMessage(ResCode.SUCCESS.getMessage());

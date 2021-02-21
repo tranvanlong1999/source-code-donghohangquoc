@@ -3,6 +3,8 @@ package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "brands")
@@ -16,4 +18,5 @@ public class BrandEntity {
     private String name;
     @Column(name = "Description")
     private String description;
+
 }

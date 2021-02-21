@@ -1,6 +1,7 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Input;
 
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.BrandEntity;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductCategoriesEntity;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,4 +18,5 @@ public class ProductInput {
     private Integer quantityremaining;
     private String createdby;
     private List<ProductAtributeInput> productAtributeInputList;
+    private List<ProductCategoriesInput> productCategoriesInputList;
 }

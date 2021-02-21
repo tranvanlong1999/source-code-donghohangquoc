@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "products_categories")
 @Data
-public class ProducCategoriesEntity {
+public class ProductCategoriesEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
