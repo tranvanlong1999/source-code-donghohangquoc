@@ -3,6 +3,7 @@ package com.example.thuctaptotnghiep.donghohanquoc.Converter;
 import com.example.thuctaptotnghiep.donghohanquoc.Constants.Constants;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductUpdateInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ProductOutput;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -48,6 +49,25 @@ public class ProductConverter {
             productEntity.setCreatedby(productInput.getCreatedby());
             productEntity.setStatus(Constants.STATUS_ACTIVE);
             productEntity.setCreatedat(new Date());
+        }
+        return productEntity;
+    }
+    public ProductEntity toProductUpdateInput(ProductUpdateInput productUpdateInput)
+    {
+        ProductEntity productEntity = new ProductEntity();
+        if(!ObjectUtils.isEmpty(productUpdateInput))
+        {
+            productEntity.setId(productUpdateInput.getId());
+            productEntity.setProductname(productUpdateInput.getProductname());
+            productEntity.setImage(productUpdateInput.getImage());
+            productEntity.setPrice(productUpdateInput.getPrice());
+            productEntity.setDescription(productUpdateInput.getDescription());
+            productEntity.setStatus(productUpdateInput.getStatus());
+            productEntity.setBrandentity(productUpdateInput.getBrandEntity());
+            productEntity.setQuantitysold(productUpdateInput.getQuantitysold());
+            productEntity.setQuantityremaining(productUpdateInput.getQuantityremaining());
+            productEntity.setUpdatedat(new Date());
+            productEntity.setUpdatedby(productUpdateInput.getUpdatedby());
         }
         return productEntity;
     }

@@ -14,6 +14,8 @@ public class SizeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
+    @Column(name = "Name")
+    private String name;
     @OneToMany(mappedBy = "sizeentity")
     private List<ProductAtributeEntity> productAtributeEntityList = new ArrayList<>();
 }

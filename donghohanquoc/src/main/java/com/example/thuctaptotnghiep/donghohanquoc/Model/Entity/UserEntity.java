@@ -3,7 +3,9 @@ package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="user") // map voi database
@@ -43,4 +45,6 @@ public class UserEntity {
     private String udatedBy;
     @Column(name = "Updated_At")
     private Date updatedAt;
+    @OneToMany(mappedBy = "userEntity")
+    private List<OrderEntity> orderEntityList= new ArrayList<>();
 }

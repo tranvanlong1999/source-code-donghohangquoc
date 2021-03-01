@@ -18,5 +18,6 @@ public class BrandEntity {
     private String name;
     @Column(name = "Description")
     private String description;
-
+    @OneToMany(mappedBy = "brandentity")
+    private List<ProductEntity> productEntityList= new ArrayList<>();
 }

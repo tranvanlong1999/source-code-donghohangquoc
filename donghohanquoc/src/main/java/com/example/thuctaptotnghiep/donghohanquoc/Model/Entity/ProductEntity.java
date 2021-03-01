@@ -44,7 +44,9 @@ public class ProductEntity {
     private String path;
     @OneToMany(mappedBy = "productEntity")
     private List<ProductCategoriesEntity> categoriesEntityList= new ArrayList<>();
-
-
+    @OneToMany(mappedBy = "productentity")
+    private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();
+    @OneToMany(mappedBy = "productEntity")
+    private List<OrderItemEntity> orderItemEntityList= new ArrayList<>();
 
 }

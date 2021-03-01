@@ -14,6 +14,8 @@ public class ColorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "Name")
+    private  String name;
     @OneToMany(mappedBy = "colorentity")
     private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();
 }
