@@ -3,7 +3,7 @@ package com.example.thuctaptotnghiep.donghohanquoc.Model.Output;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
+
 @Data
 public class CategoriesOutput {
     private Integer id;
