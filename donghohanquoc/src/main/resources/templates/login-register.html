@@ -335,7 +335,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form th:action="@{/login/user}" method="post" th:object="${loginInput}">
-                                        <p th:text="${message}"></p>
+                                        <p th:if="${errorMessage}" th:utext="${errorMessage}"></p>
                                         <input type="text" name="user-name"  th:field="*{username}" placeholder="Username" />
                                         <input type="password" name="user-password" th:field="*{password}" placeholder="Password" />
                                        <div class="button-box">
