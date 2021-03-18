@@ -32,20 +32,15 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
 
     @Override
-    public ResponseData<UserOutput> checkLogin(LoginInput loginInput) {
-         ResponseData<UserOutput> responseData = new ResponseData<>();
+    public UserOutput checkLogin(LoginInput loginInput) {
+        UserOutput userOutput = new UserOutput();
          try {
-             UserOutput userOutput = new UserOutput();
              UserEntity userEntity = userRepository.findByUserNameAndPassWord(loginInput.getUsername(),loginInput.getPassword());
              userOutput= userConverter.toUserEntity(userEntity);
-             responseData.setCode(ResCode.SUCCESS.getCode());
-             responseData.setMessage(ResCode.SUCCESS.getMessage());
-             responseData.setData(userOutput);
          } catch (Exception e) {
-             responseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
-             responseData.setMessage(ResCode.UNKNOWN_ERROR.getMessage());
+
          }
-        return responseData;
+        return userOutput;
     }
 
     @Override

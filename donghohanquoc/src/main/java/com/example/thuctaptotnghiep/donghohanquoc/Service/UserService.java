@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    ResponseData<UserOutput> checkLogin(LoginInput loginInput);
+    UserOutput checkLogin(LoginInput loginInput);
     ResponseData<Boolean> createUserByAdmin(UserInput userInput);
     ResponseData<List<UserOutput>> getListUser();
     ResponseData<Boolean> deleteUserById(Integer id);

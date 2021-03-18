@@ -21,7 +21,8 @@ public class UserController {
      @PostMapping("/login")
      public ResponseData<UserOutput> login(@RequestBody LoginInput input)
      {
-          return userService.checkLogin(input);
+        //  return userService.checkLogin(input);
+          return  null;
      }
      @PostMapping
      public ResponseData<Boolean>  createUserByAdmin(@RequestBody UserInput input)

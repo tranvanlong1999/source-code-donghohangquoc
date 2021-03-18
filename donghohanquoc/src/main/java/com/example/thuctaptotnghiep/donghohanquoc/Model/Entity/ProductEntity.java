@@ -26,7 +26,7 @@ public class ProductEntity {
     @Column(name="Status")
     private Integer status;
     @ManyToOne
-    @JoinColumn(name="Brand_ID")
+    @JoinColumn(name="Brand_id")
     private BrandEntity brandentity;
     @Column(name="Quantity_Sold")
     private Integer quantitysold;
