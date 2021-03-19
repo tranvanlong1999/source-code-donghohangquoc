@@ -14,4 +14,5 @@ public class CategoriesOutput {
     private String createdby;
     private  Date updatedat;
     private String updatedby;
+    private Integer isformen;
 }

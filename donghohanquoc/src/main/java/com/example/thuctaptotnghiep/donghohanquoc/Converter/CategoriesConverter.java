@@ -38,6 +38,7 @@ public class CategoriesConverter {
             categoriesOutput.setCreatedby(categoriesEntity.getCreatedby());
             categoriesOutput.setUpdatedat(categoriesEntity.getUpdatedat());
             categoriesOutput.setUpdatedby(categoriesEntity.getUpdatedby());
+            categoriesOutput.setIsformen(categoriesEntity.getIsformen());
         }
         return  categoriesOutput;
     }

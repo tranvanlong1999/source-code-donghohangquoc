@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface CategoriesService{
     ResponseData<Boolean> createCategorybyAdmin(CategoryInput categoryInput);
-    ResponseData<List<CategoriesOutput>> getListCategories();
+    List<CategoriesOutput> getListCategories();
     ResponseData<Boolean> deleteCategoryByAdmin(Integer categoryID);
     ResponseData<Boolean> updateCategoryByAdmin(CategoryUpdateInput categoryUpdateInput);
 }

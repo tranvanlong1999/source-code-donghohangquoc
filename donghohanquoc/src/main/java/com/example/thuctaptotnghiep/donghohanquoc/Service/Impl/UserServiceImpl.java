@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         UserOutput userOutput = new UserOutput();
          try {
              UserEntity userEntity = userRepository.findByUserNameAndPassWord(loginInput.getUsername(),loginInput.getPassword());
+             System.out.println(userEntity);
              userOutput= userConverter.toUserEntity(userEntity);
          } catch (Exception e) {
 

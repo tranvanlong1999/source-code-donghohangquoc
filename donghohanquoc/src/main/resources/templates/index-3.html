@@ -78,41 +78,24 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li><a href="index.html">TRANG CHỦ <i class="fa fa-angle-down"></i></a>
-                                   <!-- <ul class="submenu">
-                                        &lt;!&ndash;<li><a href="index.html">home version 1</a></li>
-                                        <li><a href="index-2.html">home version 2</a></li>
-                                        <li><a href="index-3.html">home version 3</a></li>
-                                        <li><a href="index-4.html">home version 4</a></li>
-                                        <li><a href="index-5.html">home version 5</a></li>
-                                        <li><a href="index-6.html">home version 6</a></li>
-                                        <li><a href="index-7.html">home version 7</a></li>
-                                        <li><a href="index-8.html">home version 8</a></li>
-                                        <li><a href="index-9.html">home version 9</a></li>
-                                        <li><a href="index-10.html">home version 10</a></li>&ndash;&gt;
-                                    </ul>-->
+                                <li><a th:href="@{/home}">TRANG CHỦ </a>
                                 </li>
-                                <li><a th:href="@{/brand}"> THƯƠNG HIỆU <i class="fa fa-angle-down"></i> </a>
-                                    <ul class="mega-menu">
-                                        <li>
-                                                <li class="mega-menu-title"><a href="#">Julius</a></li>
-                                        </li>
+                                <li><a th:href="@{/brand}"> THƯƠNG HIỆU <i class="fa fa-angle-down"></i></a>
+                                    <ul class="submenu" >
+                                        <li th:each="i : ${brandlist}"><a href="#" th:text="${i.getName()}"></a></li>
                                     </ul>
                                 </li>
-                                <li><a href="shop.html">ĐỒNG HỒ NỮ</a></li>
-                                <li><a href="shop.html"> ĐỒNG HỒ NAM </a></li>
-                                <li><a href="#">ĐỒNG HỒ CẶP <i class="fa fa-angle-down"></i></a>
-                                    <!--<ul class="submenu">
-                                        <li><a href="blog.html">blog standard</a></li>
-                                        <li><a href="blog-no-sidebar.html">blog no sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                        <li><a href="blog-details.html">blog details 1</a></li>
-                                        <li><a href="blog-details-2.html">blog details 2</a></li>
-                                        <li><a href="blog-details-3.html">blog details 3</a></li>
-                                    </ul>-->
+                                <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
+                                    <ul class="submenu" th:if="${listnam}">
+                                        <li  th:each="i1 : ${listnam}"><a href="#" th:text="${i1.getName()}"></a></li>
+                                    </ul>
                                 </li>
-                                <li><a href="about.html"> THÔNG TIN VỀ WEBSITE </a></li>
-                                <li><a href="contact.html"> LIÊN HỆ</a></li>
+                                <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
+                                    <ul class="submenu" th:if="${listnam}">
+                                        <li th:each="i2 : ${listnu}"><a href="#" th:text="${i2.getName()}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -181,7 +164,7 @@
                                     <h4>Total : <span class="shop-total">$260.00</span></h4>
                                 </div>
                                 <div class="shopping-cart-btn btn-hover text-center">
-                                    <a class="default-btn" href="cart-page.html">view cart</a>
+                                    <a class="default-btn"th:href="@{/order}">view cart</a>
                                     <a class="default-btn" href="checkout.html">checkout</a>
                                 </div>
                             </div>
@@ -193,19 +176,7 @@
                 <div class="mobile-menu">
                     <nav id="mobile-menu-active">
                         <ul class="menu-overflow">
-                            <li><a href="index.html">TRANG CHỦ</a>
-                                <ul>
-                                    <li><a href="index.html">home version 1</a></li>
-                                    <li><a href="index-2.html">home version 2</a></li>
-                                    <li><a href="index-3.html">home version 3</a></li>
-                                    <li><a href="index-4.html">home version 4</a></li>
-                                    <li><a href="index-5.html">home version 5</a></li>
-                                    <li><a href="index-6.html">home version 6</a></li>
-                                    <li><a href="index-7.html">home version 7</a></li>
-                                    <li><a href="index-8.html">home version 8</a></li>
-                                    <li><a href="index-9.html">home version 9</a></li>
-                                    <li><a href="index-10.html">home version 10</a></li>
-                                </ul>
+                            <li><a href="index-3.html">TRANG CHỦ</a>
                             </li>
                             <li><a href="shop.html">Shop</a>
                                 <ul>

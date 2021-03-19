@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Component
@@ -42,24 +43,18 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public ResponseData<List<CategoriesOutput>> getListCategories() {
-        ResponseData<List<CategoriesOutput>> listResponseData = new ResponseData<>();
+    public List<CategoriesOutput> getListCategories() {
+        List<CategoriesOutput> categoriesOutputList = new LinkedList<>();
         // lay list
         try {
-            List<CategoriesOutput> categoriesOutputList = new ArrayList<>();
             List<CategoriesEntity> categoriesEntityList=categoriesRepository.findAll();
             for (CategoriesEntity categoriesEntity: categoriesEntityList) {
                 categoriesOutputList.add(new CategoriesConverter().toCategoriesEntity(categoriesEntity));
             }
-            listResponseData.setCode(ResCode.SUCCESS.getCode());
-            listResponseData.setMessage(ResCode.SUCCESS.getMessage());
-            listResponseData.setData(categoriesOutputList);
         } catch (Exception e) {
-            listResponseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
-            listResponseData.setMessage(ResCode.UNKNOWN_ERROR.getMessage());
-        }
-        return listResponseData;
 
+        }
+        return categoriesOutputList;
     }
 
     @Override

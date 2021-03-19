@@ -2,19 +2,24 @@ package com.example.thuctaptotnghiep.donghohanquoc.Controller.CategoriesControll
 
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.CategoryInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.CategoryUpdateInput;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.BrandOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.CategoriesOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
+import com.example.thuctaptotnghiep.donghohanquoc.Service.BrandService;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
-@CrossOrigin(maxAge = 3600)
-@RestController
-@RequestMapping("/categories")
+@Controller
 public class CategoriesController {
     @Autowired
     CategoriesService categoriesService;
+    @Autowired
+    BrandService brandService;
     @PostMapping
     ResponseData<Boolean> createCategoriesByAdmin(@RequestBody CategoryInput categoryInput)
     {
@@ -23,7 +28,8 @@ public class CategoriesController {
     @GetMapping
     ResponseData<List<CategoriesOutput>> getListCategoriesByAdmin()
     {
-        return categoriesService.getListCategories();
+       /* return categoriesService.getListCategories();*/
+        return null;
     }
     @DeleteMapping
     ResponseData<Boolean>  deleteCategoryByAdmin(@RequestBody Integer categoryID)
@@ -35,4 +41,5 @@ public class CategoriesController {
     {
         return  categoriesService.updateCategoryByAdmin(categoryUpdateInput);
     }
+
 }

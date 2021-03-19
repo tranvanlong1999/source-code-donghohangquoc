@@ -77,8 +77,8 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li><a href="index.html">Home <i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu">
+                                <li><a th:href="@{/home}">Home <i class="fa fa-angle-down"></i></a>
+                                    <!--<ul class="submenu">
                                         <li><a href="index.html">home version 1</a></li>
                                         <li><a href="index-2.html">home version 2</a></li>
                                         <li><a href="index-3.html">home version 3</a></li>
@@ -89,11 +89,11 @@
                                         <li><a href="index-8.html">home version 8</a></li>
                                         <li><a href="index-9.html">home version 9</a></li>
                                         <li><a href="index-10.html">home version 10</a></li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
-                                <li><a href="shop.html"> Shop <i class="fa fa-angle-down"></i> </a>
+                                <li><a th:href="@{/brand}"> Shop <i class="fa fa-angle-down"></i> </a>
                                     <ul class="mega-menu">
-                                        <li>
+                                        <!--<li>
                                             <ul>
                                                 <li class="mega-menu-title"><a href="#">shop layout</a></li>
                                                 <li><a href="shop.html">standard style</a></li>
@@ -106,7 +106,7 @@
                                                 <li><a href="shop-list-fw.html">list 1 column full wide </a></li>
                                                 <li><a href="shop-list-fw-2col.html">list 2 column  full wide</a></li>
                                             </ul>
-                                        </li>
+                                        </li>-->
                                         <li>
                                             <ul>
                                                 <li class="mega-menu-title"><a href="#">product details</a></li>
@@ -170,10 +170,10 @@
                             <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
                             <div class="account-dropdown">
                                 <ul>
-                                    <li><a href="login-register.html">Login</a></li>
-                                    <li><a href="login-register.html">Register</a></li>
-                                    <li><a href="wishlist.html">Wishlist  </a></li>
-                                    <li><a href="my-account.html">my account</a></li>
+                                    <li><a href="login-register">Đăng nhập</a></li>
+                                    <li><a href="login-register">Đăng ký</a></li>
+                                    <li><a href="wishlist.html">Sản phẩm yêu thích  </a></li>
+                                    <li><a href="my-account.html">Thông tin tài khoản</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -232,7 +232,7 @@
                     <nav id="mobile-menu-active">
                         <ul class="menu-overflow">
                             <li><a href="index.html">HOME</a>
-                                <ul>
+                                <!--<ul>
                                     <li><a href="index.html">home version 1</a></li>
                                     <li><a href="index-2.html">home version 2</a></li>
                                     <li><a href="index-3.html">home version 3</a></li>
@@ -243,7 +243,7 @@
                                     <li><a href="index-8.html">home version 8</a></li>
                                     <li><a href="index-9.html">home version 9</a></li>
                                     <li><a href="index-10.html">home version 10</a></li>
-                                </ul>
+                                </ul>-->
                             </li>
                             <li><a href="shop.html">Shop</a>
                                 <ul>
@@ -335,7 +335,7 @@
                             <div class="login-form-container">
                                 <div class="login-register-form">
                                     <form th:action="@{/login/user}" method="post" th:object="${loginInput}">
-                                        <p th:if="${errorMessage}" th:utext="${errorMessage}"></p>
+                                        <p style="color: #ff0000"  th:text="${errorMessage}"></p>
                                         <input type="text" name="user-name"  th:field="*{username}" placeholder="Username" />
                                         <input type="password" name="user-password" th:field="*{password}" placeholder="Password" />
                                        <div class="button-box">
