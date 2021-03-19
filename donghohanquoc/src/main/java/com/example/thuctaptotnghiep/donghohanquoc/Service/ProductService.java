@@ -1,5 +1,6 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Service;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductUpdateInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ProductOutput;
@@ -14,4 +15,5 @@ public interface ProductService {
     ResponseData<Boolean> deleteProductByAdmin(Integer productid);
     ResponseData<Boolean> updateProductByAdmin(ProductUpdateInput productUpdateInput);
     Boolean createImagesInProduct(MultipartFile files, Integer productId);
+    ProductEntity getProductEntity(Integer productid);
 }

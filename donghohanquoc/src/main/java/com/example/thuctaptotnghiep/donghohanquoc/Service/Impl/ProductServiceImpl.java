@@ -152,6 +152,12 @@ public class ProductServiceImpl implements ProductService {
         }
         return true;
     }
+
+    @Override
+    public ProductEntity getProductEntity(Integer productid) {
+        return productRepository.findById(productid).get();
+    }
+
     @Override
     public ResponseData<Boolean> deleteProductByAdmin(Integer productid) {
         ResponseData<Boolean> responseData = new ResponseData<>();
