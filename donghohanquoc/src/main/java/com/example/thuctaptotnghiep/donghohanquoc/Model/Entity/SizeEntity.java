@@ -1,6 +1,7 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class SizeEntity {
     private Integer ID;
     @Column(name = "Name")
     private String name;
+    @ToString.Exclude
     @OneToMany(mappedBy = "sizeentity")
     private List<ProductAtributeEntity> productAtributeEntityList = new ArrayList<>();
 }

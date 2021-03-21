@@ -21,4 +21,5 @@ public class ProductOutput {
     private Date updatedat;
     private String updatedby;
     private String path;
+    private String PriceStr;
 }

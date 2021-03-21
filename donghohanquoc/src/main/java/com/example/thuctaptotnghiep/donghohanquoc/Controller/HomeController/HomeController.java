@@ -1,5 +1,6 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.HomeController;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.SizeEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.*;
@@ -20,22 +21,28 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    /*@Value("${error.message}")
-    private String errorMessage;*/
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private ProductService productService;
     @Autowired
     private BrandService brandService;
     @Autowired
     CategoriesService categoriesService;
+    @Autowired
+    HomeService homeService;
 
     @GetMapping("/home")
     public String home(Model model) {
-        List<ProductOutput> productOutputList = productService.getListProduct();
-        List<BrandOutput> brandOutputs = brandService.getlistbrand();
         List<CategoriesOutput> categoriesOutputList = categoriesService.getListCategories();
+        List<ProductOutput> productOutputList = productService.getListProduct();
+        //
+        List<SizeEntity> listsize= homeService.getListSize();
+        model.addAttribute("listsize",listsize);
+
+        model.addAttribute("productInfo", productOutputList);
+        List<BrandOutput> brandOutputs = brandService.getlistbrand();
+        model.addAttribute("brandlist", brandOutputs);
+
         List<CategoriesOutput> listnam = new LinkedList<>();
         List<CategoriesOutput> listnu = new LinkedList<>();
         for (CategoriesOutput item : categoriesOutputList) {
@@ -47,20 +54,17 @@ public class HomeController {
                 model.addAttribute("listnu", listnu);
             }
         }
-        model.addAttribute("brandlist", brandOutputs);
-        model.addAttribute("productInfo", productOutputList);
-
         return "index-3";
     }
 
-    @GetMapping("/login-register")
+   /* @GetMapping("/login-register")
     public String login(Model model) {
         model.addAttribute("userInput", new UserInput());
         model.addAttribute("loginInput", new LoginInput());
         return "login-register";
-    }
+    }*/
 
-    @PostMapping("/login/user")
+    /*@PostMapping("/login/user")
     public String showhome(@ModelAttribute("loginInput") LoginInput loginInput, Model model) {
         System.out.println(loginInput);
         UserOutput userOutput = userService.checkLogin(loginInput);
@@ -76,12 +80,12 @@ public class HomeController {
         }
 
     }
-
-    @PostMapping("/register/user/bycustomer")
+*/
+    /*@PostMapping("/register/user/bycustomer")
     public String registeruser(@ModelAttribute("userInput") UserInput userInput) {
         userService.createUserByAdmin(userInput);
         return "redirect:/login-register";
-    }
+    }*/
     @GetMapping("/contact")
     public  String contact()
     {

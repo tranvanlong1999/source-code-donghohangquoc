@@ -9,18 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-    
+
     <!-- CSS
 	============================================ -->
-   
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Icon Font CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/icons.min.css}" />
+    <link rel="stylesheet" href="assets/css/icons.min.css">
     <!-- Plugins CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/plugins.css}" />
+    <link rel="stylesheet" href="assets/css/plugins.css">
     <!-- Main Style CSS -->
-    <link rel="stylesheet" th:href="@{/assets/css/style.css}" />
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-6 col-8">
-                       <div class="header-right-wrap">
+                    <div class="header-right-wrap">
                         <div class="same-style header-search">
                             <a class="search-active" href="#"><i class="pe-7s-search"></i></a>
                             <div class="search-content">
@@ -108,16 +108,16 @@
                                     <input type="text" placeholder="Search" />
                                     <button class="button-search"><i class="pe-7s-search"></i></button>
                                 </form>
-                            </div> 
+                            </div>
                         </div>
                         <div class="same-style account-satting">
                             <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
                             <div class="account-dropdown">
                                 <ul>
-                                    <li><a href="login-register">Đăng nhập</a></li>
-                                    <li><a href="login-register">Đăng ký</a></li>
-                                    <li><a href="wishlist.html">Sản phẩm yêu thích  </a></li>
-                                    <li><a href="my-account.html">Thông tin tài khoản</a></li>
+                                    <li><a href="login-register.html">Login</a></li>
+                                    <li><a href="login-register.html">Register</a></li>
+                                    <li><a href="wishlist.html">Wishlist  </a></li>
+                                    <li><a href="my-account.html">my account</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                     <nav id="mobile-menu-active">
                         <ul class="menu-overflow">
                             <li><a href="index.html">HOME</a>
-                                <!--<ul>
+                                <ul>
                                     <li><a href="index.html">home version 1</a></li>
                                     <li><a href="index-2.html">home version 2</a></li>
                                     <li><a href="index-3.html">home version 3</a></li>
@@ -187,7 +187,7 @@
                                     <li><a href="index-8.html">home version 8</a></li>
                                     <li><a href="index-9.html">home version 9</a></li>
                                     <li><a href="index-10.html">home version 10</a></li>
-                                </ul>-->
+                                </ul>
                             </li>
                             <li><a href="shop.html">Shop</a>
                                 <ul>
@@ -249,72 +249,32 @@
         </div>
     </div>
 </header>
-<div class="breadcrumb-area pt-35 pb-35 bg-gray-3">
-    <div class="container">
-        <div class="breadcrumb-content text-center">
-            <ul>
-                <!--<li>
-                    <a href="index.html">Home</a>
-                </li>-->
-                <li class="active">Đăng Nhập </li>
-            </ul>
-        </div>
-    </div>
-</div>
 <div class="login-register-area pt-100 pb-100">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-12 ml-auto mr-auto">
                 <div class="login-register-wrapper">
                     <div class="login-register-tab-list nav">
-                        <a class="active" data-toggle="tab" href="#lg1">
-                            <h4> Đăng Nhập </h4>
-                        </a>
-                        <!--<a data-toggle="tab" href="#lg2">
+                        <a data-toggle="tab" href="#lg2">
                             <h4> Đăng ký </h4>
-                        </a>-->
+                        </a>
                     </div>
                     <div class="tab-content">
                         <div id="lg1" class="tab-pane active">
                             <div class="login-form-container">
                                 <div class="login-register-form">
-                                    <p th:if="${error != null}" th:text="${error}"></p>
-                                    <form th:action="@{/dang-nhap}" method="post" th:object="${user}">
-                                        <input th:if="${email == null}" type="text" class="form-control" name="email" th:field="*{email}">
-                                        <input type="text" name="email"  th:unless="${email == null}" placeholder="Email"  th:value="${email}" />
-                                        <input th:if="${password == null}" type="password" class="form-control" name="password" th:field="*{password}">
-                                        <input type="password" name="user-password" th:unless="${password == null}" placeholder="Password" th:value="${password}"/>
-                                       <div class="button-box">
-                                            <div class="login-toggle-btn">
-                                                <input th:if="${remember == null}" type="checkbox" class="form-control" name="remember" value="true" th:field="*{remember}">
-                                                <input type="checkbox" th:unless="${remember == null}"  checked="checked">
-                                                <label>Nhớ mật khẩu</label>
-                                                <a href="#">Quyên mật khẩu?</a>
-                                            </div>
-                                            <button type="submit"><span>Đăng Nhập</span></button>
-                                        </div>
-                                    </form>
-                                    <p>
-                                        Bạn chưa có tài khoản? Hãy <a th:href="@{/dangky}">Đăng kí</a> ngay!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="lg2" class="tab-pane">
-                            <div class="login-form-container">
-                                <!--<div class="login-register-form">
-                                    <form th:action="@{/register/user/bycustomer}" method="post" th:object="${userInput}">
-
-                                        <input name="user-email" placeholder="email" type="email"  th:field="*{email}"  />
-                                        <input type="password" name="user-password" th:field="*{password}"  placeholder="Mật Khẩu" />
-                                        <input name="full-name" placeholder="Họ và Tên" type="text"  th:field="*{fullname}"  />
-                                        <input name="phone" placeholder="Số điện thoại" type="text"  th:field="*{phone}"  />
-                                        <input name="address" placeholder="Địa chỉ" type="text"  th:field="*{address}"  />
+                                    <form th:action="@{/dangky}" method="post" th:object="${userInput}">
+                                        <input name="fullname" placeholder="Tên Đầy đủ" type="text" th:field="*{fullname}">
+                                        <input type="email" name="email" placeholder="email" th:field="*{email}">
+                                        <input type="password" name="user-password" placeholder="Mật Khẩu" th:field="*{password}">
+                                        <input type="password" name="repassword" placeholder="Nhập lại mật khẩu" th:field="*{rePassword}">
+                                        <input name="phone" placeholder="Điện thoại" type="tel" th:field="*{phone}">
+                                        <input name="address" placeholder="Địa chỉ" type="text" th:field="*{address}">
                                         <div class="button-box">
-                                            <button type="submit"><span>Đăng ký</span></button>
+                                            <button type="submit"><span>Đăng Ký</span></button>
                                         </div>
                                     </form>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                     </div>

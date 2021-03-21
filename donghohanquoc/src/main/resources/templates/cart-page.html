@@ -28,37 +28,25 @@
 <body>
 <header class="header-area header-in-container clearfix">
     <div class="header-top-area">
-        <div class="container">
+        <div class="container-fluid">
             <div class="header-top-wap">
                 <div class="language-currency-wrap">
                     <div class="same-language-currency language-style">
-                        <a href="#">English <i class="fa fa-angle-down"></i></a>
+                        <a href="#">Ngôn ngữ <i class="fa fa-angle-down"></i></a>
                         <div class="lang-car-dropdown">
                             <ul>
-                                <li><a href="#">Arabic </a></li>
-                                <li><a href="#">Bangla </a></li>
-                                <li><a href="#">Hindi  </a></li>
-                                <li><a href="#">Spanish </a></li>
+                                <li><a href="#">Việt Nam </a></li>
+                                <li><a href="#">English </a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="same-language-currency use-style">
-                        <a href="#">USD  <i class="fa fa-angle-down"></i></a>
-                        <div class="lang-car-dropdown">
-                            <ul>
-                                <li><a href="#">Taka (BDT) </a></li>
-                                <li><a href="#">Riyal (SAR) </a></li>
-                                <li><a href="#">Rupee (INR)  </a></li>
-                                <li><a href="#">Dirham (AED) </a></li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="same-language-currency">
-                        <p>Call Us 3965410</p>
                     </div>
                 </div>
                 <div class="header-offer">
-                    <p>Free delivery on order over <span>$200</span></p>
+                    <p>Chào mừng bạn đến với đồng hồ hàn quốc <span> Call 0358172099 </span></p>
                 </div>
             </div>
         </div>
@@ -85,13 +73,13 @@
                                     </ul>
                                 </li>
                                 <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu" th:if="${listnam}">
-                                        <li  th:each="i1 : ${listnam}"><a href="#" th:text="${i1.getName()}"></a></li>
+                                    <ul class="submenu" th:if="${listnu}">
+                                        <li  th:each="i1 : ${listnu}"><a href="#" th:text="${i1.getName()}"></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
                                     <ul class="submenu" th:if="${listnam}">
-                                        <li th:each="i2 : ${listnu}"><a href="#" th:text="${i2.getName()}"></a></li>
+                                        <li th:each="i2 : ${listnam}"><a href="#" th:text="${i2.getName()}"></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>
@@ -253,30 +241,26 @@
     <div class="container">
         <div class="breadcrumb-content text-center">
             <ul>
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li class="active">Cart Page </li>
             </ul>
         </div>
     </div>
 </div>
 <div class="cart-main-area pt-90 pb-100">
-    <div class="container"  th:each="cart : ${session.carts}">
-        <h3 class="cart-page-title">Your cart items</h3>
+    <div class="container"  >
+        <h3 class="cart-page-title">Giỏ Hàng của bạn</h3>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <form action="#">
                     <div class="table-content table-responsive cart-table-content">
-                        <table>
+                        <table th:each="cart : ${session.carts}">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Product Name</th>
-                                    <th>Until Price</th>
-                                    <th>Qty</th>
-                                    <th>Subtotal</th>
-                                    <th>action</th>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Giá Sản Phẩm</th>
+                                    <th>Số Lượng Sản Phẩm</th>
+                                    <th>Tạm Tính</th>
+                                    <th>Hoạt Động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -284,17 +268,29 @@
                                     <td class="product-thumbnail">
                                         <a href="#"><img th:src="@{${cart.productDetail.productentity.path}}" alt=""></a>
                                     </td>
-                                    <td class="product-name" ><a href="#" th:text="${cart.productDetail.productentity.productname}">Product Name</a></td>
-                                    <td class="product-price-cart"><span class="amount" th:text="${cart.productDetail.productentity.price}">$</span></td>
+                                    <td class="product-name" ><a href="#" th:text="${cart.productDetail.productentity.productname}"></a></td>
+                                    <td class="product-price-cart"><span class="amount" th:text="${cart.productDetail.productentity.price}">đ</span></td>
                                     <td class="product-quantity">
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
+                                        <div class="ajax_qty">
+											<span style="cursor: pointer;">
+												<a th:href="@{/gio-hang/update?flag=0(id=${cart.id})}" th:if="${cart.count > 1}">
+													<i class="fa fa-minus" aria-hidden="true"></i>
+												</a>
+												<i  th:unless="${cart.count > 1}" class="fa fa-minus" aria-hidden="true"></i>
+											</span>
+                                            <span th:text="${cart.count}" style="padding: 5px 10px; border: 1px solid #ccc; margin: 0 10px;"></span>
+                                            <span style="cursor: pointer;">
+												<a th:href="@{/gio-hang/update?flag=1(id=${cart.id})}" th:if="${cart.count < 5}">
+													<i class="fa fa-plus" aria-hidden="true"></i>
+												</a>
+												<i th:unless="${cart.count < 5}" class="fa fa-plus" aria-hidden="true"></i>
+											</span>
                                         </div>
                                     </td>
                                     <td class="product-subtotal" th:text="${cart.amount}">$</td>
                                     <td class="product-remove">
-                                        <a href="#"><i class="fa fa-pencil" ></i></a>
-                                        <a href="#"><i class="fa fa-times" th:href="@{/gio-hang/delete(id=${cart.id})}"></i></a>
+                                        <!--<a><i class="fa fa-pencil" ></i></a>-->
+                                        <a th:href="@{/gio-hang/delete(id=${cart.id})}" ><i class="fa fa-times" ></i></a>
                                    </td>
                                 </tr>
 
@@ -305,11 +301,11 @@
                         <div class="col-lg-12">
                             <div class="cart-shiping-update-wrapper">
                                 <div class="cart-shiping-update">
-                                    <a href="#">Continue Shopping</a>
+                                    <a th:href="@{/home}">Tiếp tục mua sắm</a>
                                 </div>
                                 <div class="cart-clear">
-                                    <button>Update Shopping Cart</button>
-                                    <a href="#">Clear Shopping Cart</a>
+                                    <button >Cập nhật giỏ hàng</button>
+                                    <a th:href="@{gio-hang/deleteallcart}">Xóa toàn bộ giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -317,58 +313,15 @@
                 </form>
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
-                        <div class="cart-tax">
-                            <div class="title-wrap">
-                                <h4 class="cart-bottom-title section-bg-gray">Estimate Shipping And Tax</h4>
-                            </div>
-                            <div class="tax-wrapper">
-                                <p>Enter your destination to get a shipping estimate.</p>
-                                <div class="tax-select-wrapper">
-                                    <div class="tax-select">
-                                        <label>
-                                            * Country
-                                        </label>
-                                        <select class="email s-email s-wid">
-                                            <option>Bangladesh</option>
-                                            <option>Albania</option>
-                                            <option>Åland Islands</option>
-                                            <option>Afghanistan</option>
-                                            <option>Belgium</option>
-                                        </select>
-                                    </div>
-                                    <div class="tax-select">
-                                        <label>
-                                            * Region / State
-                                        </label>
-                                        <select class="email s-email s-wid">
-                                            <option>Bangladesh</option>
-                                            <option>Albania</option>
-                                            <option>Åland Islands</option>
-                                            <option>Afghanistan</option>
-                                            <option>Belgium</option>
-                                        </select>
-                                    </div>
-                                    <div class="tax-select">
-                                        <label>
-                                            * Zip/Postal Code
-                                        </label>
-                                        <input type="text">
-                                    </div>
-                                    <button class="cart-btn-2" type="submit">Get A Quote</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
                         <div class="discount-code-wrapper">
                             <div class="title-wrap">
-                               <h4 class="cart-bottom-title section-bg-gray">Use Coupon Code</h4> 
+                               <h4 class="cart-bottom-title section-bg-gray">Sử dụng mã khuyến mại</h4>
                             </div>
                             <div class="discount-code">
-                                <p>Enter your coupon code if you have one.</p>
+                                <p>Nhập vào mã Khuyến mại của bạn </p>
                                 <form>
                                     <input type="text" required="" name="name">
-                                    <button class="cart-btn-2" type="submit">Apply Coupon</button>
+                                    <button class="cart-btn-2" type="submit">Sử dụng khuyến mãi</button>
                                 </form>
                             </div>
                         </div>
@@ -376,18 +329,18 @@
                     <div class="col-lg-4 col-md-12">
                         <div class="grand-totall">
                             <div class="title-wrap">
-                                <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                                <h4 class="cart-bottom-title section-bg-gary-cart">Tổng tiền giỏ Hàng</h4>
                             </div>
-                            <h5>Total products <span>$260.00</span></h5>
+                            <h5 th:if="${total > 0}"><span th:text="${amount}"></span></h5>
                             <div class="total-shipping">
-                                <h5>Total shipping</h5>
+                                <h5>Tổng tiền ship</h5>
                                 <ul>
-                                    <li><input type="checkbox"> Standard <span>$20.00</span></li>
-                                    <li><input type="checkbox"> Express <span>$30.00</span></li>
+                                    <li><input type="checkbox"> Giao hàng bình thường <span>$20.00</span></li>
+                                    <li><input type="checkbox"> Giao hàng nhanh <span>$30.00</span></li>
                                 </ul>
                             </div>
-                            <h4 class="grand-totall-title">Grand Total  <span>$260.00</span></h4>
-                            <a href="#">Proceed to Checkout</a>
+                            <h4 class="grand-totall-title">Tổng Cộng <span th:text="${amount}"></span></h4>
+                            <a href="#">Thanh Toán</a>
                         </div>
                     </div>
                 </div>

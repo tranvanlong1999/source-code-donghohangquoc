@@ -18,4 +18,5 @@ public class UserInput {
     private int sex;
     private Date joinedat;
     private String createdby;
+    private String rePassword;
 }

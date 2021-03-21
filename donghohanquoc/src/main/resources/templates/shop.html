@@ -85,13 +85,13 @@
                                     </ul>
                                 </li>
                                 <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu" th:if="${listnam}">
-                                        <li  th:each="i1 : ${listnam}"><a href="#" th:text="${i1.getName()}"></a></li>
+                                    <ul class="submenu" th:if="${listnu}">
+                                        <li  th:each="i1 : ${listnu}"><a href="#" th:text="${i1.getName()}"></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
                                     <ul class="submenu" th:if="${listnam}">
-                                        <li th:each="i2 : ${listnu}"><a href="#" th:text="${i2.getName()}"></a></li>
+                                        <li th:each="i2 : ${listnam}"><a href="#" th:text="${i2.getName()}"></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>

@@ -1,8 +1,8 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Common;
 
 public class PageConstant {
-	public static final String PAGE_LOGIN = "login";
-	public static final String PAGE_INDEX = "index";
-	public static final String PAGE_REGISTER = "register";
-	public static final String PAGE_CART = "cart";
+	public static final String PAGE_LOGIN = "login-register";
+	public static final String PAGE_INDEX = "index-3";
+	public static final String PAGE_REGISTER = "dangky";
+	public static final String PAGE_CART = "cart-page";
 }

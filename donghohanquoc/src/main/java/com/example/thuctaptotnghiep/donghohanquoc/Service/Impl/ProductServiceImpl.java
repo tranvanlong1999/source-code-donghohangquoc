@@ -48,19 +48,15 @@ public class ProductServiceImpl implements ProductService {
     CategoriesRepository categoriesRepository;
     @Autowired
     ProductCategoriesRepository productCategoriesRepository;
-
     @Override
     public List<ProductOutput> getListProduct() {
         List<ProductOutput> productOutputList = new LinkedList<>();
-        try {
-            List<ProductEntity> productEntityList = productRepository.findAll();
-                for (ProductEntity productEntity : productEntityList) {
-                productOutputList.add(new ProductConverter().toProductEntity(productEntity));
-            }
 
-        } catch (Exception e) {
+        List<ProductEntity> productEntityList = productRepository.findAll();
+
+        for (ProductEntity productEntity : productEntityList) {
+            productOutputList.add(productConverter.toProductEntity(productEntity));
         }
-
         return productOutputList;
     }
 
@@ -116,6 +112,7 @@ public class ProductServiceImpl implements ProductService {
         }
         return responseData;
     }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Boolean createImagesInProduct(MultipartFile files, Integer productId) {
@@ -130,25 +127,25 @@ public class ProductServiceImpl implements ProductService {
                 throw new Exception();
             }
 
-                StringBuilder imagePath = new StringBuilder();
-                // get file name in file
-                fileName = files.getOriginalFilename();
-                imagePath.append(fileName);
+            StringBuilder imagePath = new StringBuilder();
+            // get file name in file
+            fileName = files.getOriginalFilename();
+            imagePath.append(fileName);
 
-                File convFile = new File("src/main/resources/static/" + imagePath.toString());
+            File convFile = new File("src/main/resources/static/" + imagePath.toString());
 
-                if (convFile.createNewFile()) {
-                    FileOutputStream fos = new FileOutputStream(convFile);
-                    fos.write(files.getBytes());
-                    fos.close();
-                }
+            if (convFile.createNewFile()) {
+                FileOutputStream fos = new FileOutputStream(convFile);
+                fos.write(files.getBytes());
+                fos.close();
+            }
 
-                // set data for product
-                productEntity.setPath(Constants.BASE_IMAGE_URL + imagePath.toString());
+            // set data for product
+            productEntity.setPath(Constants.BASE_IMAGE_URL + imagePath.toString());
             // save product
             productRepository.save(productEntity);
         } catch (Exception e) {
-            return  false;
+            return false;
         }
         return true;
     }

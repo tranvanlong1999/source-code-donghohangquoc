@@ -29,6 +29,7 @@ public class CartServiceImpl implements CartService {
     private ProductRepository productRepository;
     @Autowired
     private SizeRepository sizeRepository;
+    @SuppressWarnings("unchecked")
     @Override
     public String pageCart(Model model, HttpSession session) {
         List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);
@@ -41,7 +42,7 @@ public class CartServiceImpl implements CartService {
         model.addAttribute(AMOUNT, Utils.currencyMoney((int) Utils.amount(carts)));
         return PageConstant.PAGE_CART;
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public String deleteToCart(Model model, HttpSession session, int id) {
         try {
@@ -49,11 +50,21 @@ public class CartServiceImpl implements CartService {
             int total;
 
             if (!ObjectUtils.isEmpty(carts)) {
-                carts.forEach(cart -> {
+                /*carts.forEach(cart -> {
                     if (cart.getId() == id) {
                         carts.remove(cart);
                     }
-                });
+                });*/
+                for (int i=0;i<carts.size();i++)
+                {
+                    Cart cart= carts.get(i);
+                    if(cart.getId()==id)
+                    {
+                        carts.remove(cart);
+                    }
+
+                }
+
             }
             total = carts == null ? 0 : carts.size();
 
@@ -65,11 +76,35 @@ public class CartServiceImpl implements CartService {
         }
         return REDIRECT_GIO_HANG;
     }
+    @SuppressWarnings("unchecked")
 
+    public String deleteAllCart(Model model, HttpSession session) {
+        try {
+            List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);
+            int total;
+
+            if (!ObjectUtils.isEmpty(carts)) {
+                for (int i=0;i<carts.size();i++)
+                {
+                    Cart cart= carts.get(i);
+                    carts.remove(cart);
+                }
+            }
+            total = carts == null ? 0 : carts.size();
+
+            session.setAttribute(SESSION_CART, carts);
+            model.addAttribute(TOTAL, carts.size());
+            model.addAttribute(AMOUNT, Utils.currencyMoney((int) Utils.amount(carts)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return REDIRECT_GIO_HANG;
+    }
     @Override
     public String updateToCart(Model model, HttpSession session, int id, int flag) {
         try {
             List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);
+
             int index = 0;
             int count;
             if (!ObjectUtils.isEmpty(carts)) {
@@ -98,7 +133,7 @@ public class CartServiceImpl implements CartService {
         }
         return REDIRECT_GIO_HANG;
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public String addToCart(Model model, HttpSession session, Integer id, Integer sizeId) {
         try {
@@ -129,7 +164,7 @@ public class CartServiceImpl implements CartService {
                 ProductEntity product = productRepository.findById(id).get();
 
                 SizeEntity size = sizeRepository.findById(sizeId).get();
-
+                System.out.println(size);
                 cart.setId(cartId);
                 cart.setCount(1);
                 cart.setProductId(id);

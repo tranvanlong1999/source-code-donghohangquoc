@@ -20,8 +20,9 @@ public class CartController {
     }
 
     @GetMapping("add")
-    public String addToCart(Model model, HttpSession session, @RequestParam("id") Integer id,@RequestParam("size") int size )
+    public String addToCart(Model model, HttpSession session, @RequestParam(value = "id") Integer id,@RequestParam(value = "size" , required = false) Integer size )
     {
+        size=4;
         return cartService.addToCart(model, session, id, size);
     }
     @GetMapping("update")
@@ -33,6 +34,11 @@ public class CartController {
     @GetMapping("delete")
     public String deleteToCart(Model model, HttpSession session, @RequestParam("id") int id) {
         return cartService.deleteToCart(model, session, id);
+    }
+    @GetMapping("deleteallcart")
+    public String deleteallcart(Model model,HttpSession session)
+    {
+        return cartService.deleteAllCart(model,session);
     }
 
 }

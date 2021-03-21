@@ -1,5 +1,9 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Service.Impl;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Common.Constant;
+import com.example.thuctaptotnghiep.donghohanquoc.Common.MessageConstant;
+import com.example.thuctaptotnghiep.donghohanquoc.Common.PageConstant;
+import com.example.thuctaptotnghiep.donghohanquoc.Common.Validate;
 import com.example.thuctaptotnghiep.donghohanquoc.Constants.Constants;
 import com.example.thuctaptotnghiep.donghohanquoc.Constants.ResCode;
 import com.example.thuctaptotnghiep.donghohanquoc.Converter.UserConverter;
@@ -7,22 +11,21 @@ import com.example.thuctaptotnghiep.donghohanquoc.Model.Base.CustomException;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.UserEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserUpdateInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.UserRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
-import com.sun.istack.Nullable;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.springframework.util.StringUtils.isEmpty;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -31,21 +34,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserConverter userConverter;
 
-    @Override
+    /*@Override
     public UserOutput checkLogin(LoginInput loginInput) {
         UserOutput userOutput = new UserOutput();
          try {
-             UserEntity userEntity = userRepository.findByUserNameAndPassWord(loginInput.getUsername(),loginInput.getPassword());
+             UserEntity userEntity = userRepository.findByUserNameAndPassword(loginInput.getEmail(),loginInput.getPassword());
              System.out.println(userEntity);
              userOutput= userConverter.toUserEntity(userEntity);
          } catch (Exception e) {
 
          }
         return userOutput;
-    }
+    }*/
 
     @Override
-    public ResponseData <Boolean> createUserByAdmin(UserInput userInput) {
+    public ResponseData<Boolean> createUserByAdmin(UserInput userInput) {
         ResponseData<Boolean> responseData = new ResponseData<>();
         try
         {
@@ -100,8 +103,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public ResponseData<Boolean> deleteUserById(Integer id) {
+   /* @Override*/
+   /* public ResponseData<Boolean> deleteUserById(Integer id) {
         ResponseData<Boolean> responseData= new ResponseData<>();
         try
         {
@@ -122,10 +125,10 @@ public class UserServiceImpl implements UserService {
             responseData.setData(false);
         }
         return responseData;
-    }
+    }*/
 
-    @Override
-    public ResponseData<Boolean> updateUserByAdmin(UserUpdateInput userUpdateInput) {
+   /* @Override*/
+    /*public ResponseData<Boolean> updateUserByAdmin(UserUpdateInput userUpdateInput) {
         ResponseData<Boolean> responseData= new ResponseData<>();
         try
         {
@@ -166,6 +169,108 @@ public class UserServiceImpl implements UserService {
             responseData.setData(false);
         }
         return responseData;
+    }*/
+
+    @Override
+    public String login(Model model, HttpSession session, HttpServletResponse response, LoginInput userForm) {
+        String result = PageConstant.PAGE_LOGIN;
+        String message = null;
+        try {
+            if (Validate.checkLogin(userForm)) {
+                UserEntity user = userRepository.findByEmailAndPassWord(userForm.getEmail(),userForm.getPassword());
+
+                if (ObjectUtils.isEmpty(user)) {
+                    message = MessageConstant.LOGIN_ERROR;
+                } else {
+                    if (userForm.isRemember()) {
+                        // create a cookie email
+                        Cookie cookieEmail = new Cookie("email", user.getUserName());
+                        cookieEmail.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+
+                        // create a cookie password
+                        Cookie cookiePassword = new Cookie("password", user.getPassWord());
+                        cookiePassword.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+
+                        // remove a cookie remember
+                        Cookie cookieRemember = new Cookie("remember", "" + userForm.isRemember());
+                        cookieRemember.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+
+                        // add cookie to response
+                        response.addCookie(cookieEmail);
+                        response.addCookie(cookiePassword);
+                        response.addCookie(cookieRemember);
+                    } else {
+                        // remove a cookie email
+                        Cookie cookieEmail = new Cookie("email", null);
+                        cookieEmail.setMaxAge(0); // expires in 7 days
+
+                        // remove a cookie password
+                        Cookie cookiePassword = new Cookie("password", null);
+                        cookiePassword.setMaxAge(0); // expires in 7 days
+
+                        // remove a cookie remember
+                        Cookie cookieRemember = new Cookie("remember", null);
+                        cookieRemember.setMaxAge(0); // expires in 7 days
+
+                        // add cookie to response
+                        response.addCookie(cookieEmail);
+                        response.addCookie(cookiePassword);
+                        response.addCookie(cookieRemember);
+                    }
+                    // save session
+                    session.setAttribute("user", user);
+                    result= "redirect:/home";
+                }
+            } else {
+                message = MessageConstant.LOGIN_ERROR;
+            }
+            } catch (Exception e) {
+            message = MessageConstant.LOGIN_ERROR;
+        }
+
+        model.addAttribute("error", message);
+        return result;
     }
 
+    @Transactional(rollbackOn = Exception.class)
+    @Override
+    public String register(Model model, UserInput userInput) {
+
+        String result = PageConstant.PAGE_REGISTER;
+        String error = null;
+        UserEntity user = null;
+        userInput.setUsername(userInput.getEmail());
+        System.out.println(userInput);
+        try {
+            // step 1: validate
+            if (Validate.checkRegister(userInput)) {
+                // step 2: check email exists
+                if (ObjectUtils.isEmpty(userRepository.findByUserName(userInput.getEmail()))) {
+                    // convert from register input to user entity
+                    user = userConverter.toUserInput(userInput);
+                    user.setStatus(Constant.STATUS_ENABLE);
+
+//					user.setPassword(BCrypt.hashpw(userInput.getPassword(), BCrypt.gensalt(12)));
+
+                    // step 3: save
+                    userRepository.save(user);
+
+                    // step 4: redirect page login
+                    result = "redirect:/dang-nhap";
+                } else {
+                    error = MessageConstant.RIGISTER_ERROR;
+                }
+            } else {
+                error = MessageConstant.RIGISTER_ERROR;
+            }
+        } catch (Exception e) {
+            error = MessageConstant.RIGISTER_ERROR;
+        }
+        model.addAttribute("error", error);
+        return result;
+    }
+
+
 }
+
+

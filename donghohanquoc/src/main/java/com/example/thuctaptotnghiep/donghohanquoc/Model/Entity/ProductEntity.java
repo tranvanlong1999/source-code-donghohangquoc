@@ -1,6 +1,9 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Utils.Utils;
 import lombok.Data;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -42,11 +45,15 @@ public class ProductEntity {
     private String updatedby;
     @Column(name = "Path")
     private String path;
+
     @OneToMany(mappedBy = "productEntity")
     private List<ProductCategoriesEntity> categoriesEntityList= new ArrayList<>();
     @OneToMany(mappedBy = "productentity")
+    @ToString.Exclude
     private List<ProductAtributeEntity> productAtributeEntityList= new ArrayList<>();
     @OneToMany(mappedBy = "productEntity")
     private List<OrderItemEntity> orderItemEntityList= new ArrayList<>();
-
+    public String getPriceStr() {
+        return Utils.currencyMoney((int) this.price);
+    }
 }

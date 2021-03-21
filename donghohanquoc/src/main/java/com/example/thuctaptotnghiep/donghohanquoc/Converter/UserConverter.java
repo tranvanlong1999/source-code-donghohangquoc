@@ -9,6 +9,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Date;
+
 @Component
 public class UserConverter {
     public UserOutput toUserEntity(UserEntity userEntity)
@@ -42,20 +44,34 @@ public class UserConverter {
         {
             userEntity.setUserName(userInput.getUsername());
             //Trong đó BCrypt.gensalt xác định số vòng, số vòng dao động từ 4-30, số vòng càng lớn thì thời gian thực hiện băm càng lâu.
-            userEntity.setPassWord(BCrypt.hashpw(userInput.getPassword(),BCrypt.gensalt(12)));
+           /* userEntity.setPassWord(BCrypt.hashpw(userInput.getPassword(),BCrypt.gensalt(12)));*/
+            userEntity.setPassWord(userInput.getPassword());
             userEntity.setFullName(userInput.getFullname());
             userEntity.setPhone(userInput.getPhone());
             userEntity.setAddress(userInput.getAddress());
-            userEntity.setStatus(userInput.getStatus());
-            userEntity.setRole(userInput.getRole());
+            userEntity.setStatus(1);
+            userEntity.setRole(1);
             userEntity.setEmail(userInput.getEmail());
             userEntity.setSex(userInput.getSex());
             userEntity.setCreateBy(userInput.getCreatedby());
-            userEntity.setJoinedAt(userInput.getJoinedat());
+            userEntity.setJoinedAt(new Date());
+            userEntity.setCreateBy(userInput.getFullname());
         }
         return userEntity;
     }
-    public UserEntity toLoginInput(LoginInput loginInput)
+
+    public UserEntity  toLoginInput(LoginInput userInput)
+    {
+        UserEntity userEntity = new UserEntity();
+        if(!ObjectUtils.isEmpty(userInput))
+        {
+            userEntity.setUserName(userInput.getEmail());
+            /*userEntity.setPassWord(BCrypt.hashpw(userInput.getPassword(),BCrypt.gensalt(12)));*/
+            userEntity.setPassWord(userInput.getPassword());
+        }
+        return userEntity;
+    }
+    /*public UserEntity toLoginInput(LoginInput loginInput)
     {
         UserEntity userEntity= new UserEntity();
         if(!ObjectUtils.isEmpty(loginInput))
@@ -65,7 +81,7 @@ public class UserConverter {
         }
 
         return userEntity;
-    }
+    }*/
     public UserEntity toUserUpdateInput(UserUpdateInput userUpdateInput)
     {
         UserEntity userEntity = new UserEntity();

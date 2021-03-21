@@ -37,23 +37,12 @@
                         <a href="#">Ngôn ngữ <i class="fa fa-angle-down"></i></a>
                         <div class="lang-car-dropdown">
                             <ul>
-                                <li><a href="#">Arabic </a></li>
-                                <li><a href="#">Bangla </a></li>
-                                <li><a href="#">Hindi  </a></li>
-                                <li><a href="#">Spanish </a></li>
+                                <li><a href="#">Việt Nam </a></li>
+                                <li><a href="#">English </a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="same-language-currency use-style">
-
-                        <div class="lang-car-dropdown">
-                            <ul>
-                                <li><a href="#">Taka (BDT) </a></li>
-                                <li><a href="#">Riyal (SAR) </a></li>
-                                <li><a href="#">Rupee (INR)  </a></li>
-                                <li><a href="#">Dirham (AED) </a></li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="same-language-currency">
                     </div>
@@ -86,13 +75,13 @@
                                     </ul>
                                 </li>
                                 <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu" th:if="${listnam}">
-                                        <li  th:each="i1 : ${listnam}"><a href="#" th:text="${i1.getName()}"></a></li>
+                                    <ul class="submenu" th:if="${listnu}">
+                                        <li  th:each="i1 : ${listnu}"><a href="#" th:text="${i1.getName()}"></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
                                     <ul class="submenu" th:if="${listnam}">
-                                        <li th:each="i2 : ${listnu}"><a href="#" th:text="${i2.getName()}"></a></li>
+                                        <li th:each="i2 : ${listnam}"><a href="#" th:text="${i2.getName()}"></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>
@@ -115,8 +104,8 @@
                             <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
                             <div class="account-dropdown" style="width: 153px">
                                 <ul>
-                                    <li><a href="login-register">Đăng nhập</a></li>
-                                    <li><a href="login-register">Đăng ký</a></li>
+                                    <li><a th:href="@{/dang-nhap}">Đăng nhập</a></li>
+                                    <li><a th:href="@{/dangky}">Đăng ký</a></li>
                                     <li><a href="wishlist.html">Sản phẩm yêu thích  </a></li>
                                     <li><a href="my-account.html">Thông tin tài khoản</a></li>
                                 </ul>
@@ -290,7 +279,7 @@
                         </a>
                         <span class="pink">-10%</span>
                         <div class="product-action-2">
-                            <a title="Thêm vào giỏ hàng" th:href="@{/gio-hang/add(id=${index.getId()})}"><i class="fa fa-shopping-cart"></i></a>
+                            <a title="Thêm vào giỏ hàng" th:href="@{/gio-hang/add(id=${index.id})}"><i class="fa fa-shopping-cart"></i></a>
                             <a title="Quick View" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></a>
                             <a title="Compare" href="#"><i class="fa fa-retweet"></i></a>
                         </div>
@@ -299,8 +288,11 @@
                         <div class="title-price-wrap-2">
                             <h3><a href="product-details.html" th:text="*{index.getProductname()}"></a></h3>
                             <div class="price-2">
-                                <span th:text="*{index.getPrice()}"></span>
+                                <span th:text="${index.priceStr}"></span>
                                 <span class="old">$ 60.00</span>
+                                <p>
+                                <span th:each="size: ${listsize}" th:data="${size.getID()}" th:text="${size.name}"></span>
+                                </p>
                             </div>
                         </div>
                         <div class="pro-wishlist-2">

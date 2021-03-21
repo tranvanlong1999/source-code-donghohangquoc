@@ -18,15 +18,17 @@ import java.util.List;
 public class UserController {
      @Autowired
      private UserService userService;
+     /*
      @PostMapping("/login")
      public ResponseData<UserOutput> login(@RequestBody LoginInput input)
      {
         //  return userService.checkLogin(input);
           return  null;
-     }
+     }*/
      @PostMapping
      public ResponseData<Boolean>  createUserByAdmin(@RequestBody UserInput input)
      {
+
           return  userService.createUserByAdmin(input);
      }
      @GetMapping
@@ -34,6 +36,7 @@ public class UserController {
      {
           return userService.getListUser();
      }
+     /*
      @DeleteMapping
      public ResponseData<Boolean> deleteUserById(@RequestBody Integer id)
      {
@@ -43,5 +46,5 @@ public class UserController {
      public ResponseData<Boolean> updateUserByAdmin(@RequestBody UserUpdateInput userUpdateInput)
      {
           return userService.updateUserByAdmin(userUpdateInput);
-     }
+     }*/
 }

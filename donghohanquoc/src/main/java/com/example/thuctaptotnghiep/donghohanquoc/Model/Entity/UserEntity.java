@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name="user") // map voi database
-@Data
 public class UserEntity {
     private static final long serialVersionUID = -297553281792804396L;
     @Id // primary key va not null
@@ -45,6 +44,136 @@ public class UserEntity {
     private String udatedBy;
     @Column(name = "Updated_At")
     private Date updatedAt;
-    @OneToMany(mappedBy = "userEntity")
-    private List<OrderEntity> orderEntityList= new ArrayList<>();
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getForgetCode() {
+        return forgetCode;
+    }
+
+    public void setForgetCode(String forgetCode) {
+        this.forgetCode = forgetCode;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getForgetCodeDate() {
+        return forgetCodeDate;
+    }
+
+    public void setForgetCodeDate(Date forgetCodeDate) {
+        this.forgetCodeDate = forgetCodeDate;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public Date getJoinedAt() {
+        return joinedAt;
+    }
+
+    public void setJoinedAt(Date joinedAt) {
+        this.joinedAt = joinedAt;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUdatedBy() {
+        return udatedBy;
+    }
+
+    public void setUdatedBy(String udatedBy) {
+        this.udatedBy = udatedBy;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

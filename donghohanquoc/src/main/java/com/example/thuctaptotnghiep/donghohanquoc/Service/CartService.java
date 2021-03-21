@@ -11,5 +11,5 @@ public interface CartService {
      String pageCart(Model model,HttpSession session);
      String deleteToCart(Model model, HttpSession session, int id);
      String updateToCart(Model model, HttpSession session, int id, int flag);
-
+     String deleteAllCart(Model model, HttpSession session);
 }
