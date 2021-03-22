@@ -169,6 +169,7 @@ public class CartServiceImpl implements CartService {
                 cart.setCount(1);
                 cart.setProductId(id);
                 cart.setSizeId(sizeId);
+
                 cart.setProductDetail(productAtributeRepository.findByProductentityAndSizeentity(product, size));
 
                 carts.add(cart);

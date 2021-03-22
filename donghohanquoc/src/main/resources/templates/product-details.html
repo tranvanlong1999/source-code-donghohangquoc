@@ -100,6 +100,43 @@
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-6 col-8">
+                    <div class="header-right-wrap">
+                        <div class="same-style header-search">
+                            <a class="search-active" href="#"><i class="pe-7s-search"></i></a>
+                            <div class="search-content">
+                                <form action="#">
+                                    <input type="text" placeholder="Search" />
+                                    <button class="button-search"><i class="pe-7s-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="same-style account-satting">
+                            <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
+                            <div class="account-dropdown" style="width: 153px">
+                                <ul>
+                                    <li><a th:href="@{/dang-nhap}">Đăng nhập</a></li>
+                                    <li><a th:href="@{/dangky}">Đăng ký</a></li>
+                                    <li><a href="wishlist.html">Sản phẩm yêu thích  </a></li>
+                                    <li><a href="my-account.html">Thông tin tài khoản</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="same-style header-wishlist">
+                            <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                        </div>
+                        <div class="same-style cart-wrap">
+                            <a th:href="@{/order}">
+                                <button class="icon-cart">
+
+                                    <i class="pe-7s-shopbag"></i>
+
+                                    <span class="count-style"></span>
+
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                        <div class="header-right-wrap">
                         <div class="same-style header-search">
                             <a class="search-active" href="#"><i class="pe-7s-search"></i></a>

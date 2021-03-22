@@ -1,6 +1,7 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.HomeController;
 
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.SizeEntity;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.UserEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.*;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,16 +33,21 @@ public class HomeController {
     CategoriesService categoriesService;
     @Autowired
     HomeService homeService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
         List<CategoriesOutput> categoriesOutputList = categoriesService.getListCategories();
         List<ProductOutput> productOutputList = productService.getListProduct();
         //
+
+
         List<SizeEntity> listsize= homeService.getListSize();
         model.addAttribute("listsize",listsize);
 
         model.addAttribute("productInfo", productOutputList);
+        session.getAttribute("email");
         List<BrandOutput> brandOutputs = brandService.getlistbrand();
         model.addAttribute("brandlist", brandOutputs);
 
@@ -90,6 +98,12 @@ public class HomeController {
     public  String contact()
     {
         return "contact";
+    }
+
+    @GetMapping("logout")
+    public String logout(Model model, HttpSession session, HttpServletResponse response) {
+        /*return "redirect:/dang-nhap";*/
+        return userService.pageLogout(model, session, response);
     }
 
 }

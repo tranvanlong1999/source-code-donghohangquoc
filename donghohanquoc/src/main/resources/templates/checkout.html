@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8">
@@ -9,10 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-    
+
     <!-- CSS
 	============================================ -->
-   
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Icon Font CSS -->
@@ -26,50 +26,38 @@
 </head>
 
 <body>
-<header class="header-area header-in-container clearfix">
-    <div class="header-top-area">
-        <div class="container">
+<header class="header-area clearfix">
+    <div class="header-top-area header-padding-2">
+        <div class="container-fluid">
             <div class="header-top-wap">
                 <div class="language-currency-wrap">
                     <div class="same-language-currency language-style">
-                        <a href="#">English <i class="fa fa-angle-down"></i></a>
+                        <a href="#">Ngôn ngữ <i class="fa fa-angle-down"></i></a>
                         <div class="lang-car-dropdown">
                             <ul>
-                                <li><a href="#">Arabic </a></li>
-                                <li><a href="#">Bangla </a></li>
-                                <li><a href="#">Hindi  </a></li>
-                                <li><a href="#">Spanish </a></li>
+                                <li><a href="#">Việt Nam </a></li>
+                                <li><a href="#">English </a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="same-language-currency use-style">
-                        <a href="#">USD  <i class="fa fa-angle-down"></i></a>
-                        <div class="lang-car-dropdown">
-                            <ul>
-                                <li><a href="#">Taka (BDT) </a></li>
-                                <li><a href="#">Riyal (SAR) </a></li>
-                                <li><a href="#">Rupee (INR)  </a></li>
-                                <li><a href="#">Dirham (AED) </a></li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="same-language-currency">
-                        <p>Call Us 3965410</p>
                     </div>
                 </div>
                 <div class="header-offer">
-                    <p>Free delivery on order over <span>$200</span></p>
+                    <p>Chào mừng bạn đến với đồng hồ hàn quốc <span> Call 0358172099 </span></p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="header-bottom sticky-bar header-res-padding">
-        <div class="container">
+    <div class="header-bottom sticky-bar header-res-padding header-padding-2">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-2 col-lg-2 col-md-6 col-4">
                     <div class="logo">
                         <a href="index.html">
-                            <img alt="" src="assets/img/logo/logo.png">
+                            <img alt="" src="assets/img/logo/logothaythe.png">
                         </a>
                     </div>
                 </div>
@@ -77,86 +65,34 @@
                     <div class="main-menu">
                         <nav>
                             <ul>
-                                <li><a href="index.html">Home <i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="index.html">home version 1</a></li>
-                                        <li><a href="index-2.html">home version 2</a></li>
-                                        <li><a href="index-3.html">home version 3</a></li>
-                                        <li><a href="index-4.html">home version 4</a></li>
-                                        <li><a href="index-5.html">home version 5</a></li>
-                                        <li><a href="index-6.html">home version 6</a></li>
-                                        <li><a href="index-7.html">home version 7</a></li>
-                                        <li><a href="index-8.html">home version 8</a></li>
-                                        <li><a href="index-9.html">home version 9</a></li>
-                                        <li><a href="index-10.html">home version 10</a></li>
+                                <li><a th:href="@{/home}">TRANG CHỦ </a>
+                                </li>
+                                <li><a th:href="@{/brand}"> THƯƠNG HIỆU <i class="fa fa-angle-down"></i></a>
+                                    <ul class="submenu" >
+                                        <li th:each="i : ${brandlist}"><a href="#" th:text="${i.getName()}"></a></li>
                                     </ul>
                                 </li>
-                                <li><a href="shop.html"> Shop <i class="fa fa-angle-down"></i> </a>
-                                    <ul class="mega-menu">
-                                        <li>
-                                            <ul>
-                                                <li class="mega-menu-title"><a href="#">shop layout</a></li>
-                                                <li><a href="shop.html">standard style</a></li>
-                                                <li><a href="shop-filter.html">Grid filter style</a></li>
-                                                <li><a href="shop-grid-2-col.html">Grid 2 column</a></li>
-                                                <li><a href="shop-no-sidebar.html">Grid No sidebar</a></li>
-                                                <li><a href="shop-grid-fw.html">Grid full wide </a></li>
-                                                <li><a href="shop-right-sidebar.html">Grid right sidebar</a></li>
-                                                <li><a href="shop-list.html">list 1 column box </a></li>
-                                                <li><a href="shop-list-fw.html">list 1 column full wide </a></li>
-                                                <li><a href="shop-list-fw-2col.html">list 2 column  full wide</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <ul>
-                                                <li class="mega-menu-title"><a href="#">product details</a></li>
-                                                <li><a href="product-details.html">tab style 1</a></li>
-                                                <li><a href="product-details-2.html">tab style 2</a></li>
-                                                <li><a href="product-details-3.html">tab style 3</a></li>
-                                                <li><a href="product-details-4.html">sticky style</a></li>
-                                                <li><a href="product-details-5.html">gallery style </a></li>
-                                                <li><a href="product-details-slider-box.html">Slider style</a></li>
-                                                <li><a href="product-details-affiliate.html">affiliate style</a></li>
-                                                <li><a href="product-details-6.html">fixed image style </a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <ul>
-                                                <li class="mega-menu-img"><a href="shop.html"><img src="assets/img/banner/banner-12.png" alt=""></a></li>
-                                            </ul>
-                                        </li>
+                                <li><a  th:href="@{/brand}"> ĐỒNG HỒ NỮ<i class="fa fa-angle-down"></i></a>
+                                    <ul class="submenu" th:if="${listnu}">
+                                        <li  th:each="i1 : ${listnu}"><a href="#" th:text="${i1.getName()}"></a></li>
                                     </ul>
                                 </li>
-                                <li><a href="shop.html">Collection</a></li>
-                                <li><a href="#"> Pages <i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="about.html">about us</a></li>
-                                        <li><a href="cart-page.html">cart page</a></li>
-                                        <li><a href="checkout.html">checkout </a></li>
-                                        <li><a href="wishlist.html">wishlist </a></li>
-                                        <li><a href="my-account.html">my account</a></li>
-                                        <li><a href="login-register.html">login / register </a></li>
-                                        <li><a href="contact.html">contact us </a></li>
+                                <li><a th:href="@{/brand}"> ĐỒNG HỒ NAM<i class="fa fa-angle-down"></i></a>
+                                    <ul class="submenu" th:if="${listnam}">
+                                        <li th:each="i2 : ${listnam}"><a href="#" th:text="${i2.getName()}"></a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Blog <i class="fa fa-angle-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="blog.html">blog standard</a></li>
-                                        <li><a href="blog-no-sidebar.html">blog no sidebar</a></li>
-                                        <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                        <li><a href="blog-details.html">blog details 1</a></li>
-                                        <li><a href="blog-details-2.html">blog details 2</a></li>
-                                        <li><a href="blog-details-3.html">blog details 3</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html"> About </a></li>
-                                <li><a href="contact.html"> Contact</a></li>
+                                <li><a th:href="@{/contact}"> LIÊN HỆ</a></li>
                             </ul>
                         </nav>
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-6 col-8">
-                       <div class="header-right-wrap">
+                    <div class="header-right-wrap">
+                           <span th:unless="${session.email==null}">
+                               <p th:text="${session.email}"></p>
+                           </span>
+
                         <div class="same-style header-search">
                             <a class="search-active" href="#"><i class="pe-7s-search"></i></a>
                             <div class="search-content">
@@ -164,16 +100,17 @@
                                     <input type="text" placeholder="Search" />
                                     <button class="button-search"><i class="pe-7s-search"></i></button>
                                 </form>
-                            </div> 
+                            </div>
                         </div>
                         <div class="same-style account-satting">
                             <a class="account-satting-active" href="#"><i class="pe-7s-user-female"></i></a>
-                            <div class="account-dropdown">
+                            <div class="account-dropdown" style="width: 153px">
                                 <ul>
-                                    <li><a href="login-register.html">Login</a></li>
-                                    <li><a href="login-register.html">Register</a></li>
-                                    <li><a href="wishlist.html">Wishlist  </a></li>
-                                    <li><a href="my-account.html">my account</a></li>
+                                    <li><a th:href="@{/dang-nhap}">Đăng nhập</a></li>
+                                    <li><a th:href="@{/dangky}">Đăng ký</a></li>
+                                    <li><a href="wishlist.html">Sản phẩm yêu thích  </a></li>
+                                    <li><a href="my-account.html">Thông tin tài khoản</a></li>
+                                    <li th:if="${session.user != null}"><a  th:href="@{/logout}">Đăng xuất</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -181,48 +118,15 @@
                             <a href="wishlist.html"><i class="pe-7s-like"></i></a>
                         </div>
                         <div class="same-style cart-wrap">
-                            <button class="icon-cart">
-                                <i class="pe-7s-shopbag"></i>
-                                <span class="count-style">02</span>
-                            </button>
-                            <div class="shopping-cart-content">
-                                <ul>
-                                    <li class="single-shopping-cart">
-                                        <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-1.png"></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="#">T- Shart & Jeans </a></h4>
-                                            <h6>Qty: 02</h6>
-                                            <span>$260.00</span>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fa fa-times-circle"></i></a>
-                                        </div>
-                                    </li>
-                                    <li class="single-shopping-cart">
-                                        <div class="shopping-cart-img">
-                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.png"></a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="#">T- Shart & Jeans </a></h4>
-                                            <h6>Qty: 02</h6>
-                                            <span>$260.00</span>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fa fa-times-circle"></i></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="shopping-cart-total">
-                                    <h4>Shipping : <span>$20.00</span></h4>
-                                    <h4>Total : <span class="shop-total">$260.00</span></h4>
-                                </div>
-                                <div class="shopping-cart-btn btn-hover text-center">
-                                    <a class="default-btn" href="cart-page.html">view cart</a>
-                                    <a class="default-btn" href="checkout.html">checkout</a>
-                                </div>
-                            </div>
+                            <a th:href="@{/order}">
+                                <button class="icon-cart">
+
+                                    <i class="pe-7s-shopbag"></i>
+
+                                    <span class="count-style"></span>
+
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -231,19 +135,7 @@
                 <div class="mobile-menu">
                     <nav id="mobile-menu-active">
                         <ul class="menu-overflow">
-                            <li><a href="index.html">HOME</a>
-                                <ul>
-                                    <li><a href="index.html">home version 1</a></li>
-                                    <li><a href="index-2.html">home version 2</a></li>
-                                    <li><a href="index-3.html">home version 3</a></li>
-                                    <li><a href="index-4.html">home version 4</a></li>
-                                    <li><a href="index-5.html">home version 5</a></li>
-                                    <li><a href="index-6.html">home version 6</a></li>
-                                    <li><a href="index-7.html">home version 7</a></li>
-                                    <li><a href="index-8.html">home version 8</a></li>
-                                    <li><a href="index-9.html">home version 9</a></li>
-                                    <li><a href="index-10.html">home version 10</a></li>
-                                </ul>
+                            <li><a href="index-3.html">TRANG CHỦ</a>
                             </li>
                             <li><a href="shop.html">Shop</a>
                                 <ul>
@@ -320,200 +212,150 @@
 <div class="checkout-area pt-95 pb-100">
     <div class="container">
         <div class="row">
+            <form th:action="@{/pay}"  method="POST" th:object="${thongtinnguoinhan}">
             <div class="col-lg-7">
                 <div class="billing-info-wrap">
-                    <h3>Billing Details</h3>
+                    <h3>Chi tiết thanh toán</h3>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
-                                <label>First Name</label>
-                                <input type="text">
+                                <label>Tên người nhận</label>
+                                <input type="text" th:field="*{}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
-                                <label>Last Name</label>
+                                <label>Họ người nhận</label>
                                 <input type="text">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-info mb-20">
-                                <label>Company Name</label>
-                                <input type="text">
+
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-select mb-20">
-                                <label>Country</label>
-                                <select>
-                                    <option>Select a country</option>
-                                    <option>Azerbaijan</option>
-                                    <option>Bahamas</option>
-                                    <option>Bahrain</option>
-                                    <option>Bangladesh</option>
-                                    <option>Barbados</option>
-                                </select>
+
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-info mb-20">
-                                <label>Street Address</label>
-                                <input class="billing-address" placeholder="House number and street name" type="text">
-                                <input placeholder="Apartment, suite, unit etc." type="text">
+                                <label>Địa chỉ người nhận</label>
+                                <input class="billing-address" placeholder="Địa chỉ người nhận" type="text">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="billing-info mb-20">
-                                <label>Town / City</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="billing-info mb-20">
+                                <label>Điện thoại người nhận</label>
                                 <input type="text">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
-                                <label>State / County</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-20">
-                                <label>Postcode / ZIP</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-20">
-                                <label>Phone</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="billing-info mb-20">
-                                <label>Email Address</label>
+                                <label>Email người nhận</label>
                                 <input type="text">
                             </div>
                         </div>
                     </div>
                     <div class="checkout-account mb-50">
-                        <input class="checkout-toggle2" type="checkbox">
-                        <span>Create an account?</span>
                     </div>
                     <div class="checkout-account-toggle open-toggle2 mb-30">
-                        <input placeholder="Email address" type="email">
-                        <input placeholder="Password" type="password">
-                        <button class="btn-hover checkout-btn" type="submit">register</button>
                     </div>
                     <div class="additional-info-wrap">
-                        <h4>Additional information</h4>
-                        <div class="additional-info">
-                            <label>Order notes</label>
-                            <textarea placeholder="Notes about your order, e.g. special notes for delivery. " name="message"></textarea>
-                        </div>
                     </div>
                     <div class="checkout-account mt-25">
-                        <input class="checkout-toggle" type="checkbox">
-                        <span>Ship to a different address?</span>
                     </div>
                     <div class="different-address open-toggle mt-30">
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label>First Name</label>
-                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label>Last Name</label>
-                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-info mb-20">
-                                    <label>Company Name</label>
-                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-select mb-20">
-                                    <label>Country</label>
-                                    <select>
-                                        <option>Select a country</option>
-                                        <option>Azerbaijan</option>
-                                        <option>Bahamas</option>
-                                        <option>Bahrain</option>
-                                        <option>Bangladesh</option>
-                                        <option>Barbados</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-info mb-20">
-                                    <label>Street Address</label>
-                                    <input class="billing-address" placeholder="House number and street name" type="text">
-                                    <input placeholder="Apartment, suite, unit etc." type="text">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="billing-info mb-20">
-                                    <label>Town / City</label>
-                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label>State / County</label>
-                                    <input type="text">
+
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label>Postcode / ZIP</label>
-                                    <input type="text">
+
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label>Phone</label>
-                                    <input type="text">
+
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="billing-info mb-20">
-                                    <label>Email Address</label>
-                                    <input type="text">
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="your-order-area">
-                    <h3>Your order</h3>
+                    <h3>Đơn hàng của bạn</h3>
                     <div class="your-order-wrap gray-bg-4">
-                        <div class="your-order-product-info">
+                        <div class="your-order-product-info" >
                             <div class="your-order-top">
                                 <ul>
-                                    <li>Product</li>
-                                    <li>Total</li>
+                                    <li>Sản phẩm</li>
+                                    <li>Tổng tiền</li>
                                 </ul>
                             </div>
-                            <div class="your-order-middle">
+                            <div class="your-order-middle" th:each="cart : ${session.carts}">
                                 <ul>
-                                    <li><span class="order-middle-left">Product Name  X  1</span> <span class="order-price">$329 </span></li>
-                                    <li><span class="order-middle-left">Product Name  X  1</span> <span class="order-price">$329 </span></li>
+                                    <li><span class="order-middle-left" th:text="${cart.productDetail.productentity.productname}"></span> <span class="order-price" th:text="${cart.amount}"> </span></li>
                                 </ul>
                             </div>
                             <div class="your-order-bottom">
                                 <ul>
-                                    <li class="your-order-shipping">Shipping</li>
+                                    <li class="your-order-shipping">Tiền ship</li>
                                     <li>Free shipping</li>
                                 </ul>
                             </div>
                             <div class="your-order-total">
                                 <ul>
-                                    <li class="order-total">Total</li>
-                                    <li>$329</li>
+                                    <li class="order-total">Tổng tiền</li>
+                                    <li th:text="${totalMoney}"></li>
                                 </ul>
                             </div>
                         </div>
@@ -523,43 +365,43 @@
                                     <div class="panel payment-accordion">
                                         <div class="panel-heading" id="method-one">
                                             <h4 class="panel-title">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#method1">
+                                               <!-- <a data-toggle="collapse" data-parent="#accordion" href="#method1">
                                                     Direct bank transfer
-                                                </a>
+                                                </a>-->
                                             </h4>
                                         </div>
                                         <div id="method1" class="panel-collapse collapse show">
-                                            <div class="panel-body">
+                                            <!--<div class="panel-body">
                                                 <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="panel payment-accordion">
                                         <div class="panel-heading" id="method-two">
                                             <h4 class="panel-title">
-                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method2">
+                                                <!--<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method2">
                                                     Check payments
-                                                </a>
+                                                </a>-->
                                             </h4>
                                         </div>
                                         <div id="method2" class="panel-collapse collapse">
-                                            <div class="panel-body">
+                                           <!-- <div class="panel-body">
                                                 <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="panel payment-accordion">
                                         <div class="panel-heading" id="method-three">
                                             <h4 class="panel-title">
-                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method3">
+                                                <!--<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#method3">
                                                     Cash on delivery
-                                                </a>
+                                                </a>-->
                                             </h4>
                                         </div>
                                         <div id="method3" class="panel-collapse collapse">
-                                            <div class="panel-body">
+                                           <!-- <div class="panel-body">
                                                 <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -567,10 +409,11 @@
                         </div>
                     </div>
                     <div class="Place-order mt-25">
-                        <a class="btn-hover" href="#">Place Order</a>
+                        <button type="submit"><span>Thanh toán</span></button>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>

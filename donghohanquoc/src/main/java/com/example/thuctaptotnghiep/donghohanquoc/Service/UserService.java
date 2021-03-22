@@ -24,5 +24,6 @@ public interface UserService {
     String login(Model model, HttpSession session, HttpServletResponse response, LoginInput userForm);
     String register(Model model, UserInput userInput);
     ResponseData<List<UserOutput>> getListUser();
+    String pageLogout(Model model, HttpSession session, HttpServletResponse response);
 
 }

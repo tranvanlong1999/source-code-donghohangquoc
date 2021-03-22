@@ -1,4 +1,5 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.CartController;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ReceiverInFor;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +17,14 @@ public class CartController {
     private CartService cartService;
     @GetMapping
     public String pageCart(Model model, HttpSession session) {
+        model.addAttribute("thongtinnguoinhan", new ReceiverInFor());
         return cartService.pageCart(model, session);
     }
 
     @GetMapping("add")
     public String addToCart(Model model, HttpSession session, @RequestParam(value = "id") Integer id,@RequestParam(value = "size" , required = false) Integer size )
     {
-        size=4;
+        size=2;
         return cartService.addToCart(model, session, id, size);
     }
     @GetMapping("update")

@@ -102,8 +102,32 @@ public class UserServiceImpl implements UserService {
         return  responseData;
     }
 
+    @Override
+    public String pageLogout(Model model, HttpSession session, HttpServletResponse response) {
+        session.removeAttribute("user");
+        model.addAttribute("error", null);
+        // remove a cookie email
+        Cookie cookieEmail = new Cookie("email", null);
+        cookieEmail.setMaxAge(0); // expires in 7 days
 
-   /* @Override*/
+        // remove a cookie password
+        Cookie cookiePassword = new Cookie("password", null);
+        cookiePassword.setMaxAge(0); // expires in 7 days
+
+        // remove a cookie remember
+        Cookie cookieRemember = new Cookie("remember", null);
+        cookieRemember.setMaxAge(0); // expires in 7 days
+
+        // add cookie to response
+        response.addCookie(cookieEmail);
+        response.addCookie(cookiePassword);
+        response.addCookie(cookieRemember);
+
+        return "redirect:/dang-nhap";
+    }
+
+
+    /* @Override*/
    /* public ResponseData<Boolean> deleteUserById(Integer id) {
         ResponseData<Boolean> responseData= new ResponseData<>();
         try
@@ -219,6 +243,7 @@ public class UserServiceImpl implements UserService {
                     }
                     // save session
                     session.setAttribute("user", user);
+                    session.setAttribute("email",user.getEmail());
                     result= "redirect:/home";
                 }
             } else {
