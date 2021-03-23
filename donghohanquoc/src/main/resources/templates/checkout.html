@@ -220,13 +220,11 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Tên người nhận</label>
-                                <input type="text" th:field="*{}">
+                                <input type="text" th:field="*{recipientName}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
-                                <label>Họ người nhận</label>
-                                <input type="text">
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -242,7 +240,7 @@
                         <div class="col-lg-12">
                             <div class="billing-info mb-20">
                                 <label>Địa chỉ người nhận</label>
-                                <input class="billing-address" placeholder="Địa chỉ người nhận" type="text">
+                                <input class="billing-address" placeholder="Địa chỉ người nhận" type="text" th:field="*{recipientAddress}">
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -261,13 +259,13 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Điện thoại người nhận</label>
-                                <input type="text">
+                                <input type="text" th:field="*{recipientPhone}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="billing-info mb-20">
                                 <label>Email người nhận</label>
-                                <input type="text">
+                                <input type="email" th:field="*{recipientEmail}">
                             </div>
                         </div>
                     </div>
