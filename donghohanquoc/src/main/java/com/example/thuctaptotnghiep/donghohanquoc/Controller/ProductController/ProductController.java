@@ -6,6 +6,7 @@ import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ProductOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@RestController
-@RequestMapping("/product")
+@Controller
+@RequestMapping("/sanpham")
 public class ProductController {
     @Autowired
     ProductService productService;

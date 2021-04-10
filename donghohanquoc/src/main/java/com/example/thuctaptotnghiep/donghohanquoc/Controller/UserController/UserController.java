@@ -1,41 +1,34 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.UserController;
 
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserUpdateInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
-@RestController
-@RequestMapping("/user")
+
+@Controller
+@RequestMapping("/taikhoan")
 public class UserController {
-     @Autowired
-     private UserService userService;
-     /*
-     @PostMapping("/login")
-     public ResponseData<UserOutput> login(@RequestBody LoginInput input)
-     {
-        //  return userService.checkLogin(input);
-          return  null;
-     }*/
-     @PostMapping
-     public ResponseData<Boolean>  createUserByAdmin(@RequestBody UserInput input)
-     {
+    @Autowired
+    private UserService userService;
 
-          return  userService.createUserByAdmin(input);
-     }
-     @GetMapping
-     public ResponseData<List<UserOutput>> getListUser()
-     {
-          return userService.getListUser();
-     }
+    @PostMapping("/taotaikhoanboiadmin")
+    public String createUserByAdmin(Model model, @ModelAttribute("userInput") UserInput input) {
+        userService.createUserByAdmin(model,input);
+        return "";
+    }
+
+    @GetMapping("/danhsachtaikhoan")
+    public String getListUser() {
+        //model.addAttribute("danhsachtaikhoan", userService.getListUser());
+        userService.getListUser();
+        return "ok";
+    }
      /*
      @DeleteMapping
      public ResponseData<Boolean> deleteUserById(@RequestBody Integer id)

@@ -50,7 +50,7 @@ public class UserConverter {
             userEntity.setPhone(userInput.getPhone());
             userEntity.setAddress(userInput.getAddress());
             userEntity.setStatus(1);
-            userEntity.setRole(1);
+            userEntity.setRole(userInput.getRole());
             userEntity.setEmail(userInput.getEmail());
             userEntity.setSex(userInput.getSex());
             userEntity.setCreateBy(userInput.getCreatedby());

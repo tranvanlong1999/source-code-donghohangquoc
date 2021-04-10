@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    ResponseData<Boolean> createUserByAdmin(UserInput userInput);
+    String createUserByAdmin(Model model,UserInput userInput);
     /*UserOutput checkLogin(LoginInput loginInput);*//*
 
     ResponseData<List<UserOutput>> getListUser();
@@ -23,7 +23,7 @@ public interface UserService {
     ResponseData<Boolean> updateUserByAdmin(UserUpdateInput userUpdateInput);*/
     String login(Model model, HttpSession session, HttpServletResponse response, LoginInput userForm);
     String register(Model model, UserInput userInput);
-    ResponseData<List<UserOutput>> getListUser();
     String pageLogout(Model model, HttpSession session, HttpServletResponse response);
+    List<UserOutput> getListUser();
 
 }

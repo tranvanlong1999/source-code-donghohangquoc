@@ -16,6 +16,8 @@ import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.UserRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -46,60 +48,57 @@ public class UserServiceImpl implements UserService {
          }
         return userOutput;
     }*/
-
+    @Transactional(rollbackOn = Exception.class)
     @Override
-    public ResponseData<Boolean> createUserByAdmin(UserInput userInput) {
-        ResponseData<Boolean> responseData = new ResponseData<>();
-        try
-        {
-            if(!ObjectUtils.isEmpty(userInput))
-            {
-                if(!ObjectUtils.isEmpty(userRepository.findByEmail(userInput.getEmail())))
-                {
-                    throw new CustomException(Constants.ERROR_CODE,"Email đã tồn tại trong hệ thống");
-                }
-                // convert userInput-> userEntity
-                UserEntity userEntity= userConverter.toUserInput(userInput);
-                // Insert vào bảng user trong cơ sở dữ liệu
-                userEntity=userRepository.save(userEntity);
-                // set Respondate
-                responseData.setCode(ResCode.SUCCESS.getCode());
-                responseData.setMessage(ResCode.SUCCESS.getMessage());
-                responseData.setData(true);
-            }
+    public String createUserByAdmin(Model model,UserInput userInput) {
+        String result = PageConstant.PAGE_QUANLYTAIKHOAN;
+        String error = null;
+        UserEntity user = null;
+        userInput.setUsername(userInput.getEmail());
+        try {
+            // step 1: validate
+            if (Validate.checkRegister(userInput)) {
+                // step 2: check email exists
+                if (ObjectUtils.isEmpty(userRepository.findByUserName(userInput.getEmail()))) {
+                    // convert from register input to user entity
+                    user = userConverter.toUserInput(userInput);
+                    user.setStatus(Constant.STATUS_ENABLE);
 
-            //return userConverter.toUserUserEntity(userEntity);
-        } catch (CustomException e) {
-                responseData.setCode(e.getErrorCode());
-                responseData.setMessage(e.getErrorDesc());
-                responseData.setData(false);
-        } catch (Exception e)
-        {
-                responseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
-                responseData.setMessage(ResCode.UNKNOWN_ERROR.getMessage());
-                responseData.setData(false);
+//					user.setPassword(BCrypt.hashpw(userInput.getPassword(), BCrypt.gensalt(12)));
+
+                    // step 3: save
+                    userRepository.save(user);
+
+                    // step 4: redirect page login
+                    result = "redirect:/danhsachtaikhoan";
+                } else {
+                    error = MessageConstant.CREATE_ERROR;
+                }
+            } else {
+                error = MessageConstant.CREATE_ERROR;
+            }
+        } catch (Exception e) {
+            error = MessageConstant.CREATE_ERROR;
         }
-        return responseData;
+        model.addAttribute("error", error);
+        return result;
     }
 
     @Override
-    public ResponseData< List<UserOutput> > getListUser() {
-        ResponseData<List<UserOutput>> responseData= new ResponseData<>();
+    public  List<UserOutput>  getListUser() {
+        List<UserOutput> userOutputList= new LinkedList<>();
         try {
-            List<UserEntity> userEntityList= userRepository.findAll();
-            List<UserOutput> userOutputs= new LinkedList<>();
-            for (UserEntity userEntity:userEntityList) {
-                userOutputs.add(new UserConverter().toUserEntity(userEntity));
+            Page<UserEntity> page= userRepository.findAll(
+                    PageRequest.of(0,5)
+            );
+            for (UserEntity userEntity:page) {
+                userOutputList.add(new UserConverter().toUserEntity(userEntity));
             }
-            responseData.setCode(ResCode.SUCCESS.getCode());
-            responseData.setMessage(ResCode.SUCCESS.getMessage());
-            responseData.setData(userOutputs);
 
         } catch (Exception e) {
-            responseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
-            responseData.setCode(ResCode.UNKNOWN_ERROR.getMessage());
         }
-        return  responseData;
+        System.out.println(userOutputList);
+        return  userOutputList;
     }
 
     @Override
@@ -272,6 +271,7 @@ public class UserServiceImpl implements UserService {
                 // step 2: check email exists
                 if (ObjectUtils.isEmpty(userRepository.findByUserName(userInput.getEmail()))) {
                     // convert from register input to user entity
+                    userInput.setRole(Constants.ROLE_MEMBER);
                     user = userConverter.toUserInput(userInput);
                     user.setStatus(Constant.STATUS_ENABLE);
 

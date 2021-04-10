@@ -16,19 +16,18 @@ import com.example.thuctaptotnghiep.donghohanquoc.Repository.*;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.ProductService;
 import com.example.thuctaptotnghiep.donghohanquoc.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.rmi.CORBA.Util;
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class ProductServiceImpl implements ProductService {
@@ -48,13 +47,14 @@ public class ProductServiceImpl implements ProductService {
     CategoriesRepository categoriesRepository;
     @Autowired
     ProductCategoriesRepository productCategoriesRepository;
+
     @Override
     public List<ProductOutput> getListProduct() {
         List<ProductOutput> productOutputList = new LinkedList<>();
 
-        List<ProductEntity> productEntityList = productRepository.findAll();
+        Page<ProductEntity> page = productRepository.findAll(PageRequest.of(0,5));
 
-        for (ProductEntity productEntity : productEntityList) {
+        for (ProductEntity productEntity : page) {
             productOutputList.add(productConverter.toProductEntity(productEntity));
         }
         return productOutputList;
