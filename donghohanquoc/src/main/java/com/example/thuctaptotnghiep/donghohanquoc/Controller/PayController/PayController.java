@@ -1,8 +1,7 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.PayController;
 
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.OrderEntity;
+
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ReceiverInFor;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.BrandOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.CategoriesOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.BrandService;
@@ -34,19 +33,6 @@ public class PayController {
         List<CategoriesOutput> categoriesOutputList = categoriesService.getListCategories();
         List<BrandOutput> brandOutputs = brandService.getlistbrand();
         model.addAttribute("brandlist", brandOutputs);
-
-        List<CategoriesOutput> listnam = new LinkedList<>();
-        List<CategoriesOutput> listnu = new LinkedList<>();
-        for (CategoriesOutput item : categoriesOutputList) {
-            if (item.getIsformen() == 1) {
-                listnam.add(item);
-                model.addAttribute("listnam", listnam);
-            } else {
-                listnu.add(item);
-                model.addAttribute("listnu", listnu);
-            }
-        }
-
         return payService.pagePay(session, model);
     }
     @PostMapping

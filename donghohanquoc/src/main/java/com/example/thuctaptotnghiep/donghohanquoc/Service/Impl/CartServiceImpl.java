@@ -1,9 +1,12 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Service.Impl;
 
 import com.example.thuctaptotnghiep.donghohanquoc.Common.PageConstant;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ColorEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.SizeEntity;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductAtributeInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.Cart;
+import com.example.thuctaptotnghiep.donghohanquoc.Repository.ColorRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.ProductAtributeRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.ProductRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.SizeRepository;
@@ -29,6 +32,8 @@ public class CartServiceImpl implements CartService {
     private ProductRepository productRepository;
     @Autowired
     private SizeRepository sizeRepository;
+    @Autowired
+    private ColorRepository colorRepository;
     @SuppressWarnings("unchecked")
     @Override
     public String pageCart(Model model, HttpSession session) {
@@ -135,8 +140,10 @@ public class CartServiceImpl implements CartService {
     }
     @SuppressWarnings("unchecked")
     @Override
-    public String addToCart(Model model, HttpSession session, Integer id, Integer sizeId) {
+    public String addToCart(Model model, HttpSession session, ProductAtributeInput input) {
         try {
+            System.out.println(input);
+            Integer productID= productAtributeRepository.findById(input.getId()).get().getId();
             Cart cart = new Cart();
             List<Cart> carts = (List<Cart>) session.getAttribute(SESSION_CART);
             boolean flag = false;
@@ -148,7 +155,9 @@ public class CartServiceImpl implements CartService {
                 carts = new ArrayList<>();
             } else {
                 for (Cart item : carts) {
-                    if (item.getProductId() == id && item.getSizeId() == sizeId) {
+                    if (item.getProductDetail().getProductentity().getId() == productID
+                            && item.getProductDetail().getId()== input.getId()
+                    ) {
                         cart = item;
                         flag = true;
                         index++;
@@ -161,21 +170,12 @@ public class CartServiceImpl implements CartService {
                 cart.setCount(cart.getCount() + 1);
                 carts.set(index - 1, cart);
             } else {
-                ProductEntity product = productRepository.findById(id).get();
-
-                SizeEntity size = sizeRepository.findById(sizeId).get();
-                System.out.println(size);
                 cart.setId(cartId);
                 cart.setCount(1);
-                cart.setProductId(id);
-                cart.setSizeId(sizeId);
-
-                cart.setProductDetail(productAtributeRepository.findByProductentityAndSizeentity(product, size));
-
+                cart.setProductDetail(productAtributeRepository.findById(input.getId()).get());
                 carts.add(cart);
             }
             total = carts == null ? 0 : carts.size();
-
             session.setAttribute(SESSION_CART, carts);
             model.addAttribute(TOTAL, total);
             model.addAttribute(AMOUNT, Utils.currencyMoney((int) Utils.amount(carts)));

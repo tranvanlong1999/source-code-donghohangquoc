@@ -1,10 +1,8 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Input;
 
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.BrandEntity;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductCategoriesEntity;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 @Data

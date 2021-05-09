@@ -1,12 +1,14 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.CartController;
+
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductAtributeEntity;
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ProductAtributeInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.ReceiverInFor;
+import com.example.thuctaptotnghiep.donghohanquoc.Repository.ProductAtributeRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,17 +17,32 @@ import javax.servlet.http.HttpSession;
 public class CartController {
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ProductAtributeRepository productAtributeRepository;
     @GetMapping
     public String pageCart(Model model, HttpSession session) {
         model.addAttribute("thongtinnguoinhan", new ReceiverInFor());
         return cartService.pageCart(model, session);
     }
-
-    @GetMapping("add")
-    public String addToCart(Model model, HttpSession session, @RequestParam(value = "id") Integer id,@RequestParam(value = "size" , required = false) Integer size )
+    ProductAtributeInput info= new ProductAtributeInput();
+    @PostMapping("/addproductdetail-tocart")
+    public String addproductdetail(@ModelAttribute("productAtributeInput") ProductAtributeInput productDetail, Model model)
     {
-        size=4;
-        return cartService.addToCart(model, session, id, size);
+        /*productDetailId = productDetail.getId();*/
+        info.setId(productDetail.getId());
+        info.setQuantity(productDetail.getQuantity());
+        ProductAtributeEntity productAtributeEntity= productAtributeRepository.findById(productDetail.getId()).get();
+        if(productAtributeEntity.getQuantity()  < productDetail.getQuantity())
+        {
+            Integer productid=productAtributeEntity.getProductentity().getId();
+            return "redirect:/product-details/"+productid;
+        }
+        return "redirect:/gio-hang/add";
+    }
+    @GetMapping("/add")
+    public String addToCart(Model model, HttpSession session)
+    {
+        return cartService.addToCart(model, session, info);
     }
     @GetMapping("update")
     public String updateToCart(Model model, HttpSession session, @RequestParam("id") int id,

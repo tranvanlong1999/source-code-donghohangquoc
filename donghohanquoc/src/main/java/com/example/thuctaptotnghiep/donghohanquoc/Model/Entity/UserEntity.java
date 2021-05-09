@@ -1,21 +1,15 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name="user") // map voi database
+@Table(name = "user") // map voi database
 public class UserEntity {
     private static final long serialVersionUID = -297553281792804396L;
     @Id // primary key va not null
     @GeneratedValue(strategy = GenerationType.IDENTITY)// tự tăng ID
     private int ID;
-    @Column(name = "User_Name")
-    private String userName;
     @Column(name = "Password")
     private String passWord;
     @Column(name = "Full_Name")
@@ -34,13 +28,11 @@ public class UserEntity {
     private String email;
     @Column(name = "Forget_Code_Date")
     private Date forgetCodeDate;
-    @Column(name= "Sex")
-    private int sex;
     @Column(name = "joined_At")
     private Date joinedAt;
-    @Column(name="Created_By")
+    @Column(name = "Created_By")
     private String createBy;
-    @Column(name="Updated_By")
+    @Column(name = "Updated_By")
     private String udatedBy;
     @Column(name = "Updated_At")
     private Date updatedAt;
@@ -55,14 +47,6 @@ public class UserEntity {
 
     public void setID(int ID) {
         this.ID = ID;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getPassWord() {
@@ -135,14 +119,6 @@ public class UserEntity {
 
     public void setForgetCodeDate(Date forgetCodeDate) {
         this.forgetCodeDate = forgetCodeDate;
-    }
-
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
     }
 
     public Date getJoinedAt() {

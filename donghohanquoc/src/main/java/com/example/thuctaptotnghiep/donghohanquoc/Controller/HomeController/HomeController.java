@@ -1,14 +1,20 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Controller.HomeController;
 
+import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.ProductEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.SizeEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.UserEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.*;
+import com.example.thuctaptotnghiep.donghohanquoc.Repository.ProductRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.*;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -35,65 +41,22 @@ public class HomeController {
     HomeService homeService;
     @Autowired
     UserService userService;
+    @Autowired
+    ProductRepository productRepository;
 
     @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session, Pageable pageable) {
         List<CategoriesOutput> categoriesOutputList = categoriesService.getListCategories();
-        List<ProductOutput> productOutputList = productService.getListProduct();
-        //
-
-
+        Page<ProductEntity> page = productRepository.findAll(
+                PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createdat")));
         List<SizeEntity> listsize= homeService.getListSize();
         model.addAttribute("listsize",listsize);
-
-        model.addAttribute("productInfo", productOutputList);
+        model.addAttribute("productInfo", page);
         session.getAttribute("email");
         List<BrandOutput> brandOutputs = brandService.getlistbrand();
         model.addAttribute("brandlist", brandOutputs);
-
-        List<CategoriesOutput> listnam = new LinkedList<>();
-        List<CategoriesOutput> listnu = new LinkedList<>();
-        for (CategoriesOutput item : categoriesOutputList) {
-            if (item.getIsformen() == 1) {
-                listnam.add(item);
-                model.addAttribute("listnam", listnam);
-            } else {
-                listnu.add(item);
-                model.addAttribute("listnu", listnu);
-            }
-        }
         return "index-3";
     }
-
-   /* @GetMapping("/login-register")
-    public String login(Model model) {
-        model.addAttribute("userInput", new UserInput());
-        model.addAttribute("loginInput", new LoginInput());
-        return "login-register";
-    }*/
-
-    /*@PostMapping("/login/user")
-    public String showhome(@ModelAttribute("loginInput") LoginInput loginInput, Model model) {
-        System.out.println(loginInput);
-        UserOutput userOutput = userService.checkLogin(loginInput);
-
-        System.out.println(userOutput);
-        if (userOutput.getEmail() == null) {
-            model.addAttribute("errorMessage", "Email không tồn tại trong hệ thống");
-            model.addAttribute("userInput", new UserInput());
-            return "redirect:/login-register";
-        } else {
-
-            return "redirect:/home";
-        }
-
-    }
-*/
-    /*@PostMapping("/register/user/bycustomer")
-    public String registeruser(@ModelAttribute("userInput") UserInput userInput) {
-        userService.createUserByAdmin(userInput);
-        return "redirect:/login-register";
-    }*/
     @GetMapping("/contact")
     public  String contact()
     {

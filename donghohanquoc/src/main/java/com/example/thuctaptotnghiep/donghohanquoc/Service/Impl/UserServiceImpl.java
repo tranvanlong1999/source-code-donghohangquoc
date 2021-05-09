@@ -5,13 +5,10 @@ import com.example.thuctaptotnghiep.donghohanquoc.Common.MessageConstant;
 import com.example.thuctaptotnghiep.donghohanquoc.Common.PageConstant;
 import com.example.thuctaptotnghiep.donghohanquoc.Common.Validate;
 import com.example.thuctaptotnghiep.donghohanquoc.Constants.Constants;
-import com.example.thuctaptotnghiep.donghohanquoc.Constants.ResCode;
 import com.example.thuctaptotnghiep.donghohanquoc.Converter.UserConverter;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Base.CustomException;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Entity.UserEntity;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.LoginInput;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Input.UserInput;
-import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.ResponseData;
 import com.example.thuctaptotnghiep.donghohanquoc.Model.Output.UserOutput;
 import com.example.thuctaptotnghiep.donghohanquoc.Repository.UserRepository;
 import com.example.thuctaptotnghiep.donghohanquoc.Service.UserService;
@@ -35,54 +32,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private UserConverter userConverter;
-
-    /*@Override
-    public UserOutput checkLogin(LoginInput loginInput) {
-        UserOutput userOutput = new UserOutput();
-         try {
-             UserEntity userEntity = userRepository.findByUserNameAndPassword(loginInput.getEmail(),loginInput.getPassword());
-             System.out.println(userEntity);
-             userOutput= userConverter.toUserEntity(userEntity);
-         } catch (Exception e) {
-
-         }
-        return userOutput;
-    }*/
-    @Transactional(rollbackOn = Exception.class)
-    @Override
-    public String createUserByAdmin(Model model,UserInput userInput) {
-        String result = PageConstant.PAGE_QUANLYTAIKHOAN;
-        String error = null;
-        UserEntity user = null;
-        userInput.setUsername(userInput.getEmail());
-        try {
-            // step 1: validate
-            if (Validate.checkRegister(userInput)) {
-                // step 2: check email exists
-                if (ObjectUtils.isEmpty(userRepository.findByUserName(userInput.getEmail()))) {
-                    // convert from register input to user entity
-                    user = userConverter.toUserInput(userInput);
-                    user.setStatus(Constant.STATUS_ENABLE);
-
-//					user.setPassword(BCrypt.hashpw(userInput.getPassword(), BCrypt.gensalt(12)));
-
-                    // step 3: save
-                    userRepository.save(user);
-
-                    // step 4: redirect page login
-                    result = "redirect:/danhsachtaikhoan";
-                } else {
-                    error = MessageConstant.CREATE_ERROR;
-                }
-            } else {
-                error = MessageConstant.CREATE_ERROR;
-            }
-        } catch (Exception e) {
-            error = MessageConstant.CREATE_ERROR;
-        }
-        model.addAttribute("error", error);
-        return result;
-    }
 
     @Override
     public  List<UserOutput>  getListUser() {
@@ -125,75 +74,6 @@ public class UserServiceImpl implements UserService {
         return "redirect:/dang-nhap";
     }
 
-
-    /* @Override*/
-   /* public ResponseData<Boolean> deleteUserById(Integer id) {
-        ResponseData<Boolean> responseData= new ResponseData<>();
-        try
-        {
-            // get user by ID
-            UserEntity userEntity= userRepository.findByID(id);
-            if(ObjectUtils.isEmpty(userEntity))
-            {
-                throw new Exception();
-            }
-            userRepository.delete(userEntity);
-            responseData.setCode(ResCode.SUCCESS.getCode());
-            responseData.setMessage(ResCode.SUCCESS.getMessage());
-            responseData.setData(true);
-
-        } catch (Exception e) {
-            responseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
-            responseData.setMessage(ResCode.UNKNOWN_ERROR.getMessage());
-            responseData.setData(false);
-        }
-        return responseData;
-    }*/
-
-   /* @Override*/
-    /*public ResponseData<Boolean> updateUserByAdmin(UserUpdateInput userUpdateInput) {
-        ResponseData<Boolean> responseData= new ResponseData<>();
-        try
-        {
-            // get user từ user ID
-            UserEntity userEntity = userRepository.findByID(userUpdateInput.getId());
-            boolean checkPassWordIsEmpty= false;
-            if(userUpdateInput.getPassword().isEmpty())
-                checkPassWordIsEmpty=true;
-            // case email không tồn tại trong hệ thống
-            if(ObjectUtils.isEmpty(userEntity))
-            {
-                throw new CustomException(Constants.ERROR_CODE,"user không tồn tại trong hệ thống");
-            }
-            // case email đã có trong hệ thống
-            if(!ObjectUtils.isEmpty(userRepository.findByEmailAndIDNot(userUpdateInput.getEmail(),userUpdateInput.getId())))
-            {
-                throw new CustomException(Constants.ERROR_CODE,"Email tồn tại trong hệ thống");
-            }
-            if(checkPassWordIsEmpty==false && !BCrypt.checkpw(userUpdateInput.getPassword(),userEntity.getPassWord()))
-            {
-                throw new CustomException(Constants.ERROR_CODE,"Mật khẩu cũ không chính xác");
-            }
-            // save user vào database
-            userEntity = userRepository.save(userConverter.toUserUpdateInput(userUpdateInput));
-            // set data response
-            responseData.setCode(ResCode.SUCCESS.getCode());
-            responseData.setMessage(ResCode.SUCCESS.getMessage());
-            responseData.setData(true);
-
-        } catch (CustomException e) {
-            responseData.setCode(e.getErrorCode());
-            responseData.setMessage(e.getMessage());
-            responseData.setData(false);
-        }catch (Exception e)
-        {
-            responseData.setCode(ResCode.UNKNOWN_ERROR.getCode());
-            responseData.setMessage(ResCode.UNKNOWN_ERROR.getMessage());
-            responseData.setData(false);
-        }
-        return responseData;
-    }*/
-
     @Override
     public String login(Model model, HttpSession session, HttpServletResponse response, LoginInput userForm) {
         String result = PageConstant.PAGE_LOGIN;
@@ -207,7 +87,7 @@ public class UserServiceImpl implements UserService {
                 } else {
                     if (userForm.isRemember()) {
                         // create a cookie email
-                        Cookie cookieEmail = new Cookie("email", user.getUserName());
+                        Cookie cookieEmail = new Cookie("email", user.getEmail());
                         cookieEmail.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
 
                         // create a cookie password
@@ -259,18 +139,16 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackOn = Exception.class)
     @Override
     public String register(Model model, UserInput userInput) {
-
         String result = PageConstant.PAGE_REGISTER;
         String error = null;
         UserEntity user = null;
-        userInput.setUsername(userInput.getEmail());
-        System.out.println(userInput);
         try {
             // step 1: validate
             if (Validate.checkRegister(userInput)) {
                 // step 2: check email exists
-                if (ObjectUtils.isEmpty(userRepository.findByUserName(userInput.getEmail()))) {
+                if (ObjectUtils.isEmpty(userRepository.findByEmail(userInput.getEmail()))) {
                     // convert from register input to user entity
+                    System.out.println("aa");
                     userInput.setRole(Constants.ROLE_MEMBER);
                     user = userConverter.toUserInput(userInput);
                     user.setStatus(Constant.STATUS_ENABLE);

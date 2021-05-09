@@ -3,7 +3,6 @@ package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "comments")
@@ -13,4 +12,6 @@ public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "comment_text")
+    private  String comment;
 }

@@ -1,9 +1,10 @@
 package com.example.thuctaptotnghiep.donghohanquoc.Model.Entity;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product_atribute")
@@ -13,7 +14,6 @@ public class ProductAtributeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "Product_ID")
     private ProductEntity productentity;
@@ -23,5 +23,8 @@ public class ProductAtributeEntity {
     @ManyToOne
     @JoinColumn(name="Color_ID")
     private ColorEntity colorentity ;
-
+    @Column
+    private Integer quantity;
+    @OneToMany(mappedBy = "productAtributeEntity")
+    private List<OrderItemEntity> orderItemEntityList= new ArrayList<>();
 }

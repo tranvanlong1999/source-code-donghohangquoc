@@ -44,16 +44,6 @@ public class Validate {
 		String phone = user.getPhone();
 		String rePassword = user.getRePassword();
 		Matcher matcher;
-
-		System.out.println(fullname);
-
-		// Case check fullname
-		// phai viet lien
-		matcher = VALID_FULL_NAME_REGEX.matcher(fullname);
-		if (!matcher.find()) {
-			return false;
-		}
-
 		// Case check email
 		matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
 		if (!matcher.find()) {
@@ -65,7 +55,7 @@ public class Validate {
 		if (!matcher.find()) {
 			return false;
 		}
-		System.out.println(flag);
+
 
 		// Case check address
 		if (StringUtils.isEmpty(address)) {
@@ -80,7 +70,12 @@ public class Validate {
 		if (!rePassword.equals(password)) {
 			return false;
 		}
-
+		// case check name
+		if(!StringUtils.hasText(fullname))
+		{
+			return false;
+		}
+		System.out.println(flag);
 		return flag;
 
 

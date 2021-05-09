@@ -38,15 +38,6 @@ public class LoginController {
         model.addAttribute("brandlist", brandOutputs);
         List<CategoriesOutput> listnam = new LinkedList<>();
         List<CategoriesOutput> listnu = new LinkedList<>();
-        for (CategoriesOutput item : categoriesOutputList) {
-            if (item.getIsformen() == 1) {
-                listnam.add(item);
-                model.addAttribute("listnam", listnam);
-            } else {
-                listnu.add(item);
-                model.addAttribute("listnu", listnu);
-            }
-        }
         model.addAttribute("user",new LoginInput());
         //
         session.removeAttribute("user");

@@ -15,12 +15,6 @@ import java.util.List;
 
 @Service
 public interface UserService {
-    String createUserByAdmin(Model model,UserInput userInput);
-    /*UserOutput checkLogin(LoginInput loginInput);*//*
-
-    ResponseData<List<UserOutput>> getListUser();
-    ResponseData<Boolean> deleteUserById(Integer id);
-    ResponseData<Boolean> updateUserByAdmin(UserUpdateInput userUpdateInput);*/
     String login(Model model, HttpSession session, HttpServletResponse response, LoginInput userForm);
     String register(Model model, UserInput userInput);
     String pageLogout(Model model, HttpSession session, HttpServletResponse response);

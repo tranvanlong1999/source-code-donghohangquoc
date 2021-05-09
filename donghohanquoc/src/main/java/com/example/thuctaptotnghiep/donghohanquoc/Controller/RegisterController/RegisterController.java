@@ -22,7 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/dangky")
 public class RegisterController {
     @Autowired
     private UserService userService;
@@ -30,26 +29,13 @@ public class RegisterController {
     private BrandService brandService;
     @Autowired
     private CategoriesService categoriesService;
-    @GetMapping
+    @GetMapping("/pagedangky")
     public String pageRegister(Model model, HttpSession session, HttpServletRequest request) {
         //
         List<CategoriesOutput> categoriesOutputList = categoriesService.getListCategories();
         List<BrandOutput> brandOutputs = brandService.getlistbrand();
         model.addAttribute("brandlist", brandOutputs);
-        List<CategoriesOutput> listnam = new LinkedList<>();
-        List<CategoriesOutput> listnu = new LinkedList<>();
-        for (CategoriesOutput item : categoriesOutputList) {
-            if (item.getIsformen() == 1) {
-                listnam.add(item);
-                model.addAttribute("listnam", listnam);
-            } else {
-                listnu.add(item);
-                model.addAttribute("listnu", listnu);
-            }
-        }
-
         model.addAttribute("userInput",new UserInput());
-        //
         session.removeAttribute("userInput");
         model.addAttribute("error", null);
         Cookie[] cookies = request.getCookies();
@@ -69,7 +55,7 @@ public class RegisterController {
         return PageConstant.PAGE_REGISTER;
     }
 
-    @PostMapping
+    @PostMapping("/dangky")
     public String register(Model model, @ModelAttribute("userInput") UserInput user) {
         return userService.register(model, user);
     }

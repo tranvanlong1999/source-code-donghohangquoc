@@ -70,7 +70,7 @@ public class PayServiceImpl implements PayService {
 
                 orderDetail.setOrderEntity(order);
                 orderDetail.setQuantity(cart.getCount());
-                orderDetail.setProductEntity(cart.getProductDetail().getProductentity());
+                orderDetail.setProductAtributeEntity(cart.getProductDetail());
                 orderDetails.add(orderDetail);
             }
             orderDetailRepository.saveAll(orderDetails);
